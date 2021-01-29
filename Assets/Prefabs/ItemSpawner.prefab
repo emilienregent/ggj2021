@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2201382186829670991}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.11, y: 0.642, z: -4.93}
+  m_LocalPosition: {x: 6.5, y: 1, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -43,9 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0ec51981f0eeb4ca00f61352546af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnFirstDelay: 1
-  SpawnInterval: 2
   AvailableItems:
   - {fileID: 7184757387700348133, guid: d316b13a767e3874e8bec96999ae6b43, type: 3}
   - {fileID: 5004661066451180672, guid: 1db65256a17bcc242b3198ca924af0cf, type: 3}
   - {fileID: 4063284724144236773, guid: 54f65028a7676054d8b5d7e12c4c6d4f, type: 3}
+  - {fileID: 314114941594540894, guid: 81903515686a25d4694ac1ce28f41da2, type: 3}
+  - {fileID: 8789587506327330314, guid: 172e8f92db29e9b43bece8c14f563708, type: 3}
+  - {fileID: 5491914387270644865, guid: 15b614801c1976343b58d1da9a959935, type: 3}
+  - {fileID: 8069498867203999168, guid: dda8500d75a8c6f4d9ca0746efe66efb, type: 3}
+  _pool: []

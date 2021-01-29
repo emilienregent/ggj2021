@@ -6,7 +6,7 @@ using UnityEngine;
 // Requested : Item is in game but requested by a customer, can't be requested anymore
 // Queued : Item is not in game anymore and ready to be "instantiate" again
 public enum ItemState { Available, Requested, Queued };
-public enum ItemType { Helmet, WizardHat };
+public enum ItemType { Helmet, WizardHat, Bed, Hammer, Potion, Shield, Skull, Sword };
 
 public class Item : MonoBehaviour
 {
