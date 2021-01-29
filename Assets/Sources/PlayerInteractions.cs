@@ -12,7 +12,7 @@ public class PlayerInteractions : MonoBehaviour {
     public GameObject lookObject;
 
     [Header("Pickup")]
-    [SerializeField] private Transform pickupParent;
+    [SerializeField] private Transform pickupParent = null;
     public GameObject currentlyPickedUpObject;
     private Rigidbody pickupRB;
     [SerializeField]
@@ -56,7 +56,22 @@ public class PlayerInteractions : MonoBehaviour {
             }
         }
 
+        if (Input.GetMouseButtonUp(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.gameObject.tag == "Customer")
+                {
+                    CustomerController customer = hit.transform.GetComponent<CustomerController>();
+
+                    CustomerManager.instance.ReleaseCustomer(customer);
+                }
+
+                // Do something with the object that was hit by the raycast.
+            }
+        }
     }
 
     //Release the object

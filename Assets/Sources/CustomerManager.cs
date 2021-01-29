@@ -4,6 +4,24 @@ using UnityEngine;
 
 public class CustomerManager : MonoBehaviour
 {
+    #region singleton
+    public static CustomerManager instance { private set; get; }
+
+    private void Awake()
+    {
+        // First destroy any existing instance of it
+        if (instance != null)
+        {
+            Destroy(instance);
+        }
+
+        // Then reassign a proper one
+        instance = this;
+
+        DontDestroyOnLoad(this);
+    }
+    #endregion
+
     private int inGameIndex = 0;
     private Dictionary<int, CustomerController> inGameCustomers = new Dictionary<int, CustomerController>();
     private bool _customerSpawnStarted = false;
@@ -21,7 +39,7 @@ public class CustomerManager : MonoBehaviour
 
     void Start()
     {
-            StartCoroutine("DebugZone");
+        StartCoroutine("DebugZone");
     }
 
     private IEnumerator DebugZone()
@@ -76,8 +94,6 @@ public class CustomerManager : MonoBehaviour
         {
             // Create a new item
             customer = Instantiate(customerController, this.transform);
-
-            customer.Initialize(this);
         }
 
         customer.SetReady(++inGameIndex);
