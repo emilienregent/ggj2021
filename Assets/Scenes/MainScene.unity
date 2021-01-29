@@ -25556,11 +25556,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1162733990}
     m_Modifications:
-    - target: {fileID: 3758034069304114844, guid: 160e94140ea7baf4abf30211f8e8c12c,
-        type: 3}
-      propertyPath: ItemSpawDelay
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5022393271397138141, guid: 160e94140ea7baf4abf30211f8e8c12c,
         type: 3}
       propertyPath: m_Name
