@@ -11,9 +11,9 @@ public class PlayerInteractions : MonoBehaviour {
     public int interactableCustomerLayer;
     public Transform SphereCastPos;
     [SerializeField]
-    public GameObject lookObject;
+    public Item lookedItem;
     [SerializeField]
-    public GameObject lookCustomer;
+    public CustomerController lookCustomer;
 
     [Header("Pickup")]
     [SerializeField] private Transform pickupParent = null;
@@ -32,33 +32,32 @@ public class PlayerInteractions : MonoBehaviour {
     void Update() {
         //Here we check if we're currently looking at an interactable object
         RaycastHit hit;
-        if (lookObject != null)
+        if (lookedItem != null)
         {
-            lookObject.transform.GetComponent<Item>().meshRenderer.material.SetFloat("_OutlineWidth", 0.0f);
+            lookedItem.meshRenderer.material.SetFloat("_OutlineWidth", 0.0f);
         }
 
         if (Physics.SphereCast(SphereCastPos.position, sphereCastRadius, transform.TransformDirection(Vector3.forward), out hit, maxDistance, 1 << interactableItemLayer))
         {
-           
-            lookObject = hit.collider.transform.gameObject;
-            lookObject.transform.GetComponent<Item>().meshRenderer.material.SetFloat("_OutlineWidth", 0.02f);
+            lookedItem = hit.collider.transform.GetComponent<Item>();
+            lookedItem.meshRenderer.material.SetFloat("_OutlineWidth", 0.02f);
         } 
         else
         {
-            lookObject = null;
+            lookedItem = null;
         }
 
         if (lookCustomer != null)
         {
-            lookCustomer.transform.GetComponent<CustomerController>().face.material.SetFloat("_OutlineWidth", 0.0f);
-            lookCustomer.transform.GetComponent<CustomerController>().body.material.SetFloat("_OutlineWidth", 0.0f);
+            lookCustomer.face.material.SetFloat("_OutlineWidth", 0.0f);
+            lookCustomer.body.material.SetFloat("_OutlineWidth", 0.0f);
         }
 
         if (Physics.SphereCast(SphereCastPos.position, sphereCastRadius, transform.TransformDirection(Vector3.forward), out hit, maxDistance, 1 << interactableCustomerLayer))
         {
-            lookCustomer = hit.collider.transform.gameObject;
-            lookCustomer.transform.GetComponent<CustomerController>().face.material.SetFloat("_OutlineWidth", 0.02f);
-            lookCustomer.transform.GetComponent<CustomerController>().body.material.SetFloat("_OutlineWidth", 0.02f);
+            lookCustomer = hit.collider.transform.GetComponent<CustomerController>();
+            lookCustomer.face.material.SetFloat("_OutlineWidth", 0.02f);
+            lookCustomer.body.material.SetFloat("_OutlineWidth", 0.02f);
         }
         else
         {
@@ -73,7 +72,7 @@ public class PlayerInteractions : MonoBehaviour {
             {
                 if (currentlyPickedUpObject == null)
                 {
-                    if (lookObject != null)
+                    if (lookedItem != null)
                     {
                         PickUpObject();
                     }
@@ -82,7 +81,7 @@ public class PlayerInteractions : MonoBehaviour {
                 {
                     if (lookCustomer != null)
                     {
-                        CustomerController customer = lookCustomer.transform.GetComponent<CustomerController>();
+                        CustomerController customer = lookCustomer;
 
                         if (currentlyPickedUpObject != null)
                         {
@@ -147,7 +146,7 @@ public class PlayerInteractions : MonoBehaviour {
     }
 
     public void PickUpObject() {
-        currentlyPickedUpObject = lookObject;
+        currentlyPickedUpObject = lookedItem.gameObject;
         currentlyPickedUpObject.transform.position = pickupParent.position;
         pickupRB = currentlyPickedUpObject.GetComponent<Rigidbody>();
         pickupRB.isKinematic = false;
@@ -170,7 +169,7 @@ public class PlayerInteractions : MonoBehaviour {
     }
 
     public void UnstoreObject(GameObject storedObject) {
-        lookObject = storedObject;
+        lookedItem = storedObject.transform.GetComponent<Item>();
         PickUpObject();
     }
 
