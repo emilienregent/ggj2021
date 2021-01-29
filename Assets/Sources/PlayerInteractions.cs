@@ -51,12 +51,14 @@ public class PlayerInteractions : MonoBehaviour {
         if (lookCustomer != null)
         {
             lookCustomer.transform.GetComponent<CustomerController>().face.material.SetFloat("_OutlineWidth", 0.0f);
+            lookCustomer.transform.GetComponent<CustomerController>().body.material.SetFloat("_OutlineWidth", 0.0f);
         }
 
         if (Physics.SphereCast(SphereCastPos.position, sphereCastRadius, transform.TransformDirection(Vector3.forward), out hit, maxDistance, 1 << interactableCustomerLayer))
         {
             lookCustomer = hit.collider.transform.gameObject;
             lookCustomer.transform.GetComponent<CustomerController>().face.material.SetFloat("_OutlineWidth", 0.02f);
+            lookCustomer.transform.GetComponent<CustomerController>().body.material.SetFloat("_OutlineWidth", 0.02f);
         }
         else
         {
