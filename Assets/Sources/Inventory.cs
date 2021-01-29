@@ -53,8 +53,8 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    private void OnCollisionExit(Collision collision) {
-        if(collision.gameObject.tag == "Player")
+    private void OnTriggerExit(Collider other) {
+        if(other.transform.root.gameObject.tag == "Player")
         {
             ChestUI.gameObject.SetActive(false);
         }

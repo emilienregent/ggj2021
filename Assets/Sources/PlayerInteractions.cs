@@ -145,32 +145,32 @@ public class PlayerInteractions : MonoBehaviour {
         PickUpObject();
     }
 
-    private void OnCollisionEnter(Collision collision) {
-        if(collision.gameObject.tag == "Chest")
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "Chest")
         {
             _canInteractWithItem = false;
         }
-            
     }
 
-    private void OnCollisionExit(Collision collision) {
-        if(collision.gameObject.tag == "Chest")
+    private void OnTriggerExit(Collider other) {
+        if(other.gameObject.tag == "Chest")
         {
             _canInteractWithItem = true;
         }
     }
 
-    private void OnCollisionStay(Collision collision) {
-        if(collision.gameObject.tag == "Chest")
+    private void OnTriggerStay(Collider other) {
+        if(other.gameObject.tag == "Chest")
         {
             if(Input.GetButtonDown("Action"))
             {
-                Inventory chest = collision.gameObject.GetComponent<Inventory>();
+                Inventory chest = other.gameObject.GetComponent<Inventory>();
                 chest.ChestUI.gameObject.SetActive(true);
                 if(currentlyPickedUpObject != null)
                 {
                     chest.Add(currentlyPickedUpObject.GetComponent<Item>());
-                    StoreObject();  
+                    StoreObject();
                 }
             }
         }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23525014595314014}
   - component: {fileID: 2014308421741724400}
   - component: {fileID: 2722864877689204168}
+  - component: {fileID: 7481472188959145169}
   m_Layer: 0
   m_Name: chestA
   m_TagString: Chest
@@ -111,6 +112,19 @@ MonoBehaviour:
   Player: {fileID: 0}
   InventorySpace: 36
   items: []
+--- !u!65 &7481472188959145169
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619717194498572}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 1.5}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &2027280035532507526
 GameObject:
   m_ObjectHideFlags: 0
