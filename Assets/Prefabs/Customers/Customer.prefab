@@ -68,6 +68,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   queuePosition: 0
+  face: {fileID: 4172752246228795850}
+  body: {fileID: 4172926589871266286}
+  outfits:
+  - {fileID: 2100000, guid: 8d2fdc1d7c61cc343a929d9c8569a82a, type: 2}
+  - {fileID: 2100000, guid: a35ebf5fb8ac918479e9331abda9854a, type: 2}
+  - {fileID: 2100000, guid: 5a75d955eae4e764f8bccc929f5f3fc9, type: 2}
+  - {fileID: 2100000, guid: 462a2962168082e4f8ddc9280c090bb9, type: 2}
 --- !u!1001 &4160267022527236924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -128,6 +135,18 @@ PrefabInstance:
 --- !u!4 &4157616230103432246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4201501479450378, guid: d9d2cfaad561dfe4aa51cf3e524fcfc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4160267022527236924}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4172926589871266286 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23936709444834002, guid: d9d2cfaad561dfe4aa51cf3e524fcfc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4160267022527236924}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4172752246228795850 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23825179699071734, guid: d9d2cfaad561dfe4aa51cf3e524fcfc2,
     type: 3}
   m_PrefabInstance: {fileID: 4160267022527236924}
   m_PrefabAsset: {fileID: 0}

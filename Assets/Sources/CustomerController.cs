@@ -4,6 +4,11 @@ public class CustomerController : MonoBehaviour
 {
     public int queuePosition = 0;
 
+    [Header("Model")]
+    public MeshRenderer body = null;
+    public MeshRenderer face = null;
+    public Material[] outfits = null;
+
     private int _index = -1;
     private Vector3 _position = Vector3.zero;
 
@@ -22,7 +27,14 @@ public class CustomerController : MonoBehaviour
         transform.position = _position;
         transform.rotation = Quaternion.Euler(0f, 90f, 0f);
 
+        SetOutfit();
         gameObject.SetActive(true);
+    }
+
+    private void SetOutfit()
+    {
+        face.material = outfits[Random.Range(0, outfits.Length)];
+        body.material = outfits[Random.Range(0, outfits.Length)];
     }
 
     public void RefreshQueuePosition()
