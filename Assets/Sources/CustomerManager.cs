@@ -23,6 +23,7 @@ public class CustomerManager : MonoBehaviour
     private int inGameIndex = 0;
     private Dictionary<int, CustomerController> inGameCustomers = new Dictionary<int, CustomerController>();
     private bool _customerSpawnStarted = false;
+    private int[] slots = new int[10];
 
     public int maxCustomers = 0;
     public List<CustomerController> customerPrefabs = new List<CustomerController>();
@@ -33,23 +34,6 @@ public class CustomerManager : MonoBehaviour
     void Update()
     {
         StartSpawnCustomers();
-    }
-
-    void Start()
-    {
-        StartCoroutine("DebugZone");
-    }
-
-    private IEnumerator DebugZone()
-    {
-        yield return new WaitForSeconds(6);
-        this.ReleaseCustomer(inGameCustomers[3]);
-
-        yield return new WaitForSeconds(4);
-        this.ReleaseCustomer(inGameCustomers[1]);
-
-        yield return new WaitForSeconds(4);
-        this.ReleaseCustomer(inGameCustomers[11]);
     }
 
     public virtual void StartSpawnCustomers()
@@ -94,7 +78,15 @@ public class CustomerManager : MonoBehaviour
             customer = Instantiate(customerController, this.transform);
         }
 
-        customer.SetReady(++inGameIndex);
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i] <= 0)
+            {
+                slots[i] = 1;
+                customer.SetReady(i);
+                break;
+            }
+        }
 
         // Add item to the dictionnary of in game items
         inGameCustomers.Add(customer.index, customer);
@@ -104,15 +96,9 @@ public class CustomerManager : MonoBehaviour
 
     public void ReleaseCustomer(CustomerController customerController)
     {
-        customerController.gameObject.SetActive(false);
+        slots[customerController.index] = 0;
 
-        for (int i = customerController.index + 1; i < inGameIndex + 1; i++)
-        {
-            if (inGameCustomers.ContainsKey(i))
-            {
-                inGameCustomers[i].RefreshQueuePosition();
-            }
-        }
+        customerController.gameObject.SetActive(false);
 
         inGameCustomers.Remove(customerController.index);
     }
