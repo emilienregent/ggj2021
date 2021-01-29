@@ -17,8 +17,6 @@ public class CustomerManager : MonoBehaviour
 
         // Then reassign a proper one
         instance = this;
-
-        DontDestroyOnLoad(this);
     }
     #endregion
 
@@ -112,7 +110,7 @@ public class CustomerManager : MonoBehaviour
         {
             if (inGameCustomers.ContainsKey(i))
             {
-                inGameCustomers[i].refreshQueuePosition();
+                inGameCustomers[i].RefreshQueuePosition();
             }
         }
 
