@@ -42,7 +42,10 @@ public class PlayerInteractions : MonoBehaviour {
         } 
         else
         {
-            lookObject.transform.GetComponent<Item>().meshRenderer.material.SetFloat("_OutlineWidth", 0.0f);
+            if (lookObject != null)
+            {
+                lookObject.transform.GetComponent<Item>().meshRenderer.material.SetFloat("_OutlineWidth", 0.0f);
+            }
             lookObject = null;
         }
 
