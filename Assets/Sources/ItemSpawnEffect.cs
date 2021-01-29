@@ -5,20 +5,17 @@ using UnityEngine;
 public class ItemSpawnEffect : MonoBehaviour
 {
 
-    public float UpForce = 1f;
-    public float SideForce = .1f;
+    public float RotationForce = 1000f;
+    public float SideForce = 250f;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        float xForce = Random.Range(-SideForce, SideForce);
-        float yForce = Random.Range(UpForce / 2f, UpForce);
-        float zForce = Random.Range(-SideForce, SideForce);
+        Rigidbody body = GetComponent<Rigidbody>();
 
-        Vector3 force = new Vector3(xForce, yForce, zForce);
-
-        GetComponent<Rigidbody>().velocity = force;
+        body.AddForce(-1 * transform.right * SideForce);
+        body.AddTorque(0f, 0f, Random.Range(RotationForce/2, RotationForce));
 
     }
 }
