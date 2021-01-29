@@ -31,27 +31,31 @@ public class PlayerInteractions : MonoBehaviour {
     void Update() {
         //Here we check if we're currently looking at an interactable object
         RaycastHit hit;
-        if(Physics.SphereCast(SphereCastPos.position, sphereCastRadius, transform.TransformDirection(Vector3.forward), out hit, maxDistance, 1 << interactableItemLayer))
+        if (lookObject != null)
         {
-            if (lookObject != null)
-            {
-                lookObject.transform.GetComponent<Item>().meshRenderer.material.SetFloat("_OutlineWidth", 0.0f);
-            }
+            lookObject.transform.GetComponent<Item>().meshRenderer.material.SetFloat("_OutlineWidth", 0.0f);
+        }
+
+        if (Physics.SphereCast(SphereCastPos.position, sphereCastRadius, transform.TransformDirection(Vector3.forward), out hit, maxDistance, 1 << interactableItemLayer))
+        {
+           
             lookObject = hit.collider.transform.gameObject;
             lookObject.transform.GetComponent<Item>().meshRenderer.material.SetFloat("_OutlineWidth", 0.02f);
         } 
         else
         {
-            if (lookObject != null)
-            {
-                lookObject.transform.GetComponent<Item>().meshRenderer.material.SetFloat("_OutlineWidth", 0.0f);
-            }
             lookObject = null;
+        }
+
+        if (lookCustomer != null)
+        {
+            lookCustomer.transform.GetComponent<CustomerController>().face.material.SetFloat("_OutlineWidth", 0.0f);
         }
 
         if (Physics.SphereCast(SphereCastPos.position, sphereCastRadius, transform.TransformDirection(Vector3.forward), out hit, maxDistance, 1 << interactableCustomerLayer))
         {
             lookCustomer = hit.collider.transform.gameObject;
+            lookCustomer.transform.GetComponent<CustomerController>().face.material.SetFloat("_OutlineWidth", 0.02f);
         }
         else
         {
@@ -150,7 +154,6 @@ public class PlayerInteractions : MonoBehaviour {
         {
             _canInteractWithItem = false;
         }
-            
     }
 
     private void OnCollisionExit(Collision collision) {
