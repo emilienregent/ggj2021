@@ -6,7 +6,7 @@ public class CustomerController : MonoBehaviour
 {
     private CustomerManager _manager = null;
     private int _index = -1;
-    private int _customersCountAtSpawn = 0;
+    public int _queuePosition = 0;
 
     private Vector3 _position = Vector3.zero;
 
@@ -15,12 +15,15 @@ public class CustomerController : MonoBehaviour
     public void Initialize(CustomerManager manager)
     {
         _manager = manager;
-        _customersCountAtSpawn = _manager.inGameCustomersCount;
     }
 
     public void SetReady(int inGameIndex)
     {
         _index = inGameIndex;
+
+        this.name = "Customer " + _index;
+
+        _queuePosition = _manager.inGameCustomersCount;
 
         _position = _manager.spawnPosition;
 
@@ -29,11 +32,16 @@ public class CustomerController : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    public void refreshQueuePosition()
+    {
+        _queuePosition--;
+    }
+
     private void Update()
     {
-        if(transform.position.x < 6.5 - (1.4* _customersCountAtSpawn))
+        if(transform.position.x < 6.5 - (1.4* _queuePosition))
         {
-            _position.x += .02f;
+            _position.x += .03f;
             transform.position = _position;
         }
 

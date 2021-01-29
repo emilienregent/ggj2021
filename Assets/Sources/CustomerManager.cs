@@ -19,6 +19,23 @@ public class CustomerManager : MonoBehaviour
         StartSpawnCustomers();
     }
 
+    void Start()
+    {
+            StartCoroutine("DebugZone");
+    }
+
+    private IEnumerator DebugZone()
+    {
+        yield return new WaitForSeconds(6);
+        this.ReleaseCustomer(inGameCustomers[3]);
+
+        yield return new WaitForSeconds(4);
+        this.ReleaseCustomer(inGameCustomers[1]);
+
+        yield return new WaitForSeconds(4);
+        this.ReleaseCustomer(inGameCustomers[11]);
+    }
+
     public virtual void StartSpawnCustomers()
     {
         if (_customerSpawnStarted == false)
@@ -35,7 +52,7 @@ public class CustomerManager : MonoBehaviour
             //float difficulty = _difficultyByTime.Evaluate(GameManager.instance.playTime / _playtimeTreshold);
 
             // From maximum delay (no difficulty) to minimum delay
-            float delay = 1;
+            float delay = 0.5f;
 
             //Debug.Log("Start for " + Time.timeSinceLevelLoad + "s\nDifficulty of " + difficulty + " --> Delay of " + delay + "s");
 
@@ -54,26 +71,11 @@ public class CustomerManager : MonoBehaviour
     {
         CustomerController customer = null;
 
-        // Search from the pool
-        //for (int i = 0; i < availableItems.Count; ++i)
-        //{
-        //    if (availableItems[i].itemType == itemController.itemType)
-        //    {
-        //        // Get item from pool
-        //        item = availableItems[i];
-
-        //        // Remove item from pool
-        //        availableItems.RemoveAt(i);
-
-        //        break;
-        //    }
-        //}
-
         // Nothing in pull, create one
         if (customer == null)
         {
             // Create a new item
-            customer = Instantiate(customerController);
+            customer = Instantiate(customerController, this.transform);
 
             customer.Initialize(this);
         }
@@ -84,5 +86,21 @@ public class CustomerManager : MonoBehaviour
         inGameCustomers.Add(customer.index, customer);
 
         return customer;
+    }
+
+    public void ReleaseCustomer(CustomerController customerController)
+    {
+        customerController.gameObject.SetActive(false);
+
+        for (int i = customerController.index + 1; i < inGameIndex + 1; i++)
+        {
+            if (inGameCustomers.ContainsKey(i))
+            {
+                inGameCustomers[i].refreshQueuePosition();
+            }
+        }
+
+        inGameCustomers.Remove(customerController.index);
+
     }
 }
