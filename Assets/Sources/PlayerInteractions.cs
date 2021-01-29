@@ -22,6 +22,8 @@ public class PlayerInteractions : MonoBehaviour {
     [SerializeField]
     private float maxDistance = 0.3f;
 
+    bool _canInteractWithItem = true;
+
     private void Start() {
     }
 
@@ -48,29 +50,26 @@ public class PlayerInteractions : MonoBehaviour {
         }
 
         //if we press the button of choice
-        if (Input.GetButtonDown("Action"))
+        if(Input.GetButtonDown("Action"))
         {
-            //and we're not holding anything
-            if(currentlyPickedUpObject == null)
-            {
-                //and we are looking an interactable object
-                if(lookObject != null)
+            if(_canInteractWithItem) { 
+                if(currentlyPickedUpObject == null)
                 {
-                    PickUpObject();
-                }
-
-            }
-            //if we press the pickup button and have something, we drop it
-            else
-            {
-                if (lookCustomer != null) // we are looking at a customer ? give the item
-                {
-                    CustomerController customer = lookCustomer.transform.GetComponent<CustomerController>();
-                    CustomerManager.instance.CompleteCustomerRequest(customer);
-                    currentlyPickedUpObject.SetActive(false);
+                    if(lookObject != null)
+                    {
+                        PickUpObject();
+                    }
                 } else
                 {
-                    BreakConnection();
+                    if(lookCustomer != null)
+                    {
+                        CustomerController customer = lookCustomer.transform.GetComponent<CustomerController>();
+                        CustomerManager.instance.CompleteCustomerRequest(customer);
+                        currentlyPickedUpObject.SetActive(false);
+                    } else
+                    {
+                        BreakConnection();
+                    }
                 }
             }
         }
@@ -102,20 +101,58 @@ public class PlayerInteractions : MonoBehaviour {
         pickupRB.constraints = RigidbodyConstraints.None;
         Physics.IgnoreCollision(PlayerCollider, currentlyPickedUpObject.GetComponent<BoxCollider>(), false);
         currentlyPickedUpObject = null;
+        pickupRB = null;
     }
 
     public void PickUpObject() {
         currentlyPickedUpObject = lookObject;
         currentlyPickedUpObject.transform.position = pickupParent.position;
         pickupRB = currentlyPickedUpObject.GetComponent<Rigidbody>();
+        pickupRB.isKinematic = false;
         pickupRB.drag = 10;
         pickupRB.useGravity = false;
         pickupRB.constraints = RigidbodyConstraints.FreezePosition;
-        pickupRB.ResetInertiaTensor();
         currentlyPickedUpObject.transform.parent = pickupParent;
 
         Physics.IgnoreCollision(PlayerCollider, currentlyPickedUpObject.GetComponent<BoxCollider>(), true);
     }
 
+    public void StoreObject() {
+        pickupRB.isKinematic = true;
+        currentlyPickedUpObject.transform.parent = null;
+        currentlyPickedUpObject.gameObject.transform.position = new Vector3(-100, -100, -100);
+        pickupRB = null;
+        
+        Physics.IgnoreCollision(PlayerCollider, currentlyPickedUpObject.GetComponent<BoxCollider>(), false);
+        currentlyPickedUpObject = null;
+    }
 
+    public void UnstoreObject(GameObject storedObject) {
+        lookObject = storedObject;
+        PickUpObject();
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        _canInteractWithItem = false;
+    }
+
+    private void OnCollisionExit(Collision collision) {
+        _canInteractWithItem = true;
+    }
+
+    private void OnCollisionStay(Collision collision) {
+        if(collision.gameObject.tag == "Chest")
+        {
+            if(Input.GetButtonDown("Action"))
+            {
+                Inventory chest = collision.gameObject.GetComponent<Inventory>();
+                chest.ChestUI.gameObject.SetActive(true);
+                if(currentlyPickedUpObject != null)
+                {
+                    chest.Add(currentlyPickedUpObject.GetComponent<Item>());
+                    StoreObject();  
+                }
+            }
+        }
+    }
 }

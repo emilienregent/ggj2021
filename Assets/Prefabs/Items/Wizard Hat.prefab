@@ -87,6 +87,12 @@ PrefabInstance:
       propertyPath: Name
       value: Wizard Hat
       objectReference: {fileID: 0}
+    - target: {fileID: 6319927952961939501, guid: 3d9f5898a39a21e4aadb04954f4288f6,
+        type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 3b08ba6885f55b345b67df7390631eef,
+        type: 3}
     - target: {fileID: 7109870406815617999, guid: 3d9f5898a39a21e4aadb04954f4288f6,
         type: 3}
       propertyPath: m_IsActive
