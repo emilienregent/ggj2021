@@ -137,11 +137,18 @@ public class PlayerInteractions : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        _canInteractWithItem = false;
+        if(collision.gameObject.tag == "Chest")
+        {
+            _canInteractWithItem = false;
+        }
+            
     }
 
     private void OnCollisionExit(Collision collision) {
-        _canInteractWithItem = true;
+        if(collision.gameObject.tag == "Chest")
+        {
+            _canInteractWithItem = true;
+        }
     }
 
     private void OnCollisionStay(Collision collision) {
