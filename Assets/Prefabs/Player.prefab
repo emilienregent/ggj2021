@@ -333,7 +333,7 @@ MonoBehaviour:
   lookCustomer: {fileID: 0}
   pickupParent: {fileID: 2964024762694517804}
   currentlyPickedUpObject: {fileID: 0}
-  maxDistance: 0.3
+  maxDistance: 3
 --- !u!1 &4005438599926892714
 GameObject:
   m_ObjectHideFlags: 0

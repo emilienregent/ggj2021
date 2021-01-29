@@ -66,6 +66,10 @@ public class PlayerInteractions : MonoBehaviour {
                         CustomerController customer = lookCustomer.transform.GetComponent<CustomerController>();
                         CustomerManager.instance.CompleteCustomerRequest(customer);
                         currentlyPickedUpObject.SetActive(false);
+                        currentlyPickedUpObject.transform.parent = null;
+                        currentlyPickedUpObject = null;
+                        pickupRB.drag = 1;
+                        pickupRB.useGravity = true;
                     } else
                     {
                         BreakConnection();
