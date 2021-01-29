@@ -6,13 +6,17 @@ public class ScoreController : MonoBehaviour
 {
     public TMP_Text label = null;
 
-    private int currentScore = 0;
+    private int _currentScore = 0;
+    private int _tweenId = -1;
 
     public void SetScore(int score)
     {
-        currentScore = score;
+        if (LeanTween.isTweening(_tweenId) == true)
+        {
+            LeanTween.cancel(gameObject, _tweenId);
+        }
 
-        label.text = currentScore.ToString();
+        _tweenId = LeanTween.value(_currentScore, score, 1f).setOnUpdate(OnScoreAnimationUpdated).id;
     }
 
     private void Start()
@@ -20,11 +24,18 @@ public class ScoreController : MonoBehaviour
         StartCoroutine(FakeUpdateScore());
     }
 
+    private void OnScoreAnimationUpdated(float progress)
+    {
+        _currentScore = Mathf.RoundToInt(progress);
+
+        label.text = _currentScore.ToString();
+    }
+
     private IEnumerator FakeUpdateScore()
     {
         yield return new WaitForSeconds(Random.Range(1f, 3f));
 
-        SetScore(currentScore + Random.Range(5, 10));
+        SetScore(_currentScore + Random.Range(5, 10));
 
         StartCoroutine(FakeUpdateScore());
     }
