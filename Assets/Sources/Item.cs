@@ -6,24 +6,20 @@ using UnityEngine;
 // Requested : Item is in game but requested by a customer, can't be requested anymore
 // Queued : Item is not in game anymore and ready to be "instantiate" again
 public enum ItemState { Available, Requested, Queued };
+public enum ItemType { Helmet, WizardHat };
+
 public class Item : MonoBehaviour
 {
-
     public string Name;
+    public ItemType ItemType;
     public ItemState CurrentState;
     public Sprite icon;
     public MeshRenderer meshRenderer;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         CurrentState = ItemState.Available;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnDisable()

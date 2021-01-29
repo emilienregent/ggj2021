@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
+    #region singleton
+    public static ItemSpawner instance { private set; get; }
+
+    private void Awake()
+    {
+        // First destroy any existing instance of it
+        if (instance != null)
+        {
+            Destroy(instance);
+        }
+
+        // Then reassign a proper one
+        instance = this;
+    }
+    #endregion
 
     [Header("Configuration")]
     public float SpawnFirstDelay = 1f;
@@ -14,7 +29,7 @@ public class ItemSpawner : MonoBehaviour
 
     public List<Item> Pool { get => _pool; set => _pool = value; }
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         // Draw a semitransparent cube at the transforms position
         Gizmos.color = new Color(1, 0, 0, 0.5f);
@@ -22,7 +37,7 @@ public class ItemSpawner : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if(AvailableItems.Count > 0)
         {
@@ -30,13 +45,7 @@ public class ItemSpawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void SpawnItem()
+    private void SpawnItem()
     {
         Item newItem = null;
         Item itemToInstantiate = AvailableItems[Random.Range(0, AvailableItems.Count)];
@@ -44,7 +53,7 @@ public class ItemSpawner : MonoBehaviour
         // First, check if we have this item in available in the pool
         foreach(Item item in _pool)
         {
-            if(item.Name == itemToInstantiate.Name)
+            if(item.Name == itemToInstantiate.Name && item.CurrentState == ItemState.Queued)
             {
                 newItem = item;
                 newItem.transform.position = transform.position;
@@ -56,7 +65,8 @@ public class ItemSpawner : MonoBehaviour
         if(newItem == null)
         {
             newItem = Instantiate(itemToInstantiate, transform);
-        }
 
+            _pool.Add(newItem);
+        }
     }
 }
