@@ -19,6 +19,13 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    [Header("Configuration")]
+    public float ItemSpawDelay = 1f;
+    public float ItemSpawnInterval = 2f;
+    public float CustomerSpawDelay = 1f;
+    public float CustomerSpawnInterval = 2f;
+
+    [Header("Game Values")]
     public int currentScore = 0;
 
     public Action<int> ScoreUpdated = null;

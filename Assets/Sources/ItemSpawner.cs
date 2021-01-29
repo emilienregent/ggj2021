@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
@@ -21,8 +22,6 @@ public class ItemSpawner : MonoBehaviour
     #endregion
 
     [Header("Configuration")]
-    public float SpawnFirstDelay = 1f;
-    public float SpawnInterval = 2f;
     public List<Item> AvailableItems = new List<Item>();
 
     private List<Item> _pool = new List<Item>();
@@ -41,7 +40,7 @@ public class ItemSpawner : MonoBehaviour
     {
         if(AvailableItems.Count > 0)
         {
-            InvokeRepeating("SpawnItem", SpawnFirstDelay, SpawnInterval);
+            InvokeRepeating("SpawnItem", GameManager.instance.ItemSpawDelay, GameManager.instance.ItemSpawnInterval);
         }
     }
 
@@ -68,5 +67,10 @@ public class ItemSpawner : MonoBehaviour
 
             _pool.Add(newItem);
         }
+    }
+
+    public Item RequestItem()
+    {
+        return _pool.First(item => item.CurrentState == ItemState.Available);
     }
 }

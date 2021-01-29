@@ -31,16 +31,23 @@ public class CustomerManager : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
+        StartCoroutine(SpawnFirstCustomer());
+    }
+
+    private IEnumerator SpawnFirstCustomer()
+    {
+        yield return new WaitForSeconds(GameManager.instance.CustomerSpawDelay);
+
         // Spawn first customer for FTUE
         SpawnCustomer(customerPrefabs[0]);
     }
 
-    public virtual void StartSpawnCustomers()
+    private void StartSpawnCustomers()
     {
         if (_customerSpawnStarted == false)
         {
             _customerSpawnStarted = true;
-            StartCoroutine("SpawnCustomers");
+            StartCoroutine(SpawnCustomers());
         }
     }
 
@@ -48,14 +55,7 @@ public class CustomerManager : MonoBehaviour
     {
         while (true)
         {
-            //float difficulty = _difficultyByTime.Evaluate(GameManager.instance.playTime / _playtimeTreshold);
-
-            // From maximum delay (no difficulty) to minimum delay
-            float delay = 0.5f;
-
-            //Debug.Log("Start for " + Time.timeSinceLevelLoad + "s\nDifficulty of " + difficulty + " --> Delay of " + delay + "s");
-
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(GameManager.instance.CustomerSpawDelay);
 
             if (inGameCustomersCount < slots.Length)
             {
@@ -90,13 +90,16 @@ public class CustomerManager : MonoBehaviour
             if (slots[i] <= 0)
             {
                 slots[i] = 1;
-                customer.SetReady(i);
+
+                if (customer.SetReady(i))
+                {
+                    // Add item to the dictionnary of in game items
+                    inGameCustomers.Add(customer.index, customer);
+                }
                 break;
             }
         }
 
-        // Add item to the dictionnary of in game items
-        inGameCustomers.Add(customer.index, customer);
     }
 
     public void ReleaseCustomer(CustomerController customerController)
