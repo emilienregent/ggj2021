@@ -111,16 +111,23 @@ public class CustomerManager : MonoBehaviour
         inGameCustomers.Remove(customerController.index);
     }
 
-    public void CompleteCustomerRequest(CustomerController customerController)
+    public bool CompleteCustomerRequest(CustomerController customerController, Item item)
     {
-        // Start real spawning once first customer has been completed
-        if (GameManager.instance.currentScore == 0)
+        if (item.ItemType == customerController.currentRequest.item.ItemType)
         {
-            StartSpawnCustomers();
+            // Start real spawning once first customer has been completed
+            if (GameManager.instance.currentScore == 0)
+            {
+                StartSpawnCustomers();
+            }
+
+            GameManager.instance.UpdateScore(customerController.score);
+
+            ReleaseCustomer(customerController);
+
+            return true;
         }
 
-        GameManager.instance.UpdateScore(customerController.score);
-
-        ReleaseCustomer(customerController);
+        return false;
     }
 }

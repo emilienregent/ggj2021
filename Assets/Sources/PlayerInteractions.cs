@@ -80,14 +80,21 @@ public class PlayerInteractions : MonoBehaviour {
                     if (lookCustomer != null)
                     {
                         CustomerController customer = lookCustomer.transform.GetComponent<CustomerController>();
-                        CustomerManager.instance.CompleteCustomerRequest(customer);
-                        currentlyPickedUpObject.SetActive(false);
-                        currentlyPickedUpObject.transform.parent = null;
-                        currentlyPickedUpObject = null;
-                        pickupRB.drag = 1;
-                        pickupRB.useGravity = true;
-                    }
-                    else
+
+                        if (currentlyPickedUpObject != null)
+                        {
+                            Item item = currentlyPickedUpObject.GetComponent<Item>();
+
+                            if (CustomerManager.instance.CompleteCustomerRequest(customer, item))
+                            {
+                                currentlyPickedUpObject.SetActive(false);
+                                currentlyPickedUpObject.transform.parent = null;
+                                currentlyPickedUpObject = null;
+                                pickupRB.drag = 1;
+                                pickupRB.useGravity = true;
+                            }
+                        }
+                    } else
                     {
                         BreakConnection();
                     }
@@ -116,7 +123,7 @@ public class PlayerInteractions : MonoBehaviour {
                 {
                     CustomerController customer = hit.transform.GetComponent<CustomerController>();
 
-                    CustomerManager.instance.CompleteCustomerRequest(customer);
+                    CustomerManager.instance.CompleteCustomerRequest(customer, ItemSpawner.instance.RequestItem());
                 }
 
                 // Do something with the object that was hit by the raycast.

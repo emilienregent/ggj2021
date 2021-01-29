@@ -33,6 +33,8 @@ public class CustomerController : MonoBehaviour
 
     public int score { get { return Mathf.RoundToInt(_currentRequest.price * _currentRequest.satisfaction); } }
 
+    public ItemRequest currentRequest { get { return _currentRequest; } }
+
     public bool SetReady(int inGameIndex)
     {
         _index = inGameIndex;

@@ -76,6 +76,15 @@ public class ItemSpawner : MonoBehaviour
 
     public Item RequestItem()
     {
-        return _pool.First(item => item.CurrentState == ItemState.Available);
+        System.Random rand = new System.Random();
+
+        List<Item> availableItems = _pool.Where(item => item.CurrentState == ItemState.Available).ToList();
+
+        if (availableItems != null)
+        {
+            return availableItems[rand.Next(availableItems.Count)];
+        }
+
+        return null;
     }
 }
