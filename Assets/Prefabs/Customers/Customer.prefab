@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1357960412503646584}
   - component: {fileID: 223406894296732772}
   - component: {fileID: 3452374585440428416}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 2051501164560680878}
   - component: {fileID: 4772525201206555630}
   - component: {fileID: 3172938819827180755}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 201290106853212200}
   - component: {fileID: 4590780245083452817}
   - component: {fileID: -166034054954645278}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Customer
   m_TagString: Customer
   m_Icon: {fileID: 0}
@@ -262,6 +262,18 @@ PrefabInstance:
     - target: {fileID: 1131709337216896, guid: d9d2cfaad561dfe4aa51cf3e524fcfc2, type: 3}
       propertyPath: m_Name
       value: char01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131709337216896, guid: d9d2cfaad561dfe4aa51cf3e524fcfc2, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1391114113043240, guid: d9d2cfaad561dfe4aa51cf3e524fcfc2, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1499328226028332, guid: d9d2cfaad561dfe4aa51cf3e524fcfc2, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4201501479450378, guid: d9d2cfaad561dfe4aa51cf3e524fcfc2, type: 3}
       propertyPath: m_LocalPosition.x
