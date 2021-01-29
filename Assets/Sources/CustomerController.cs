@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class CustomerController : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class CustomerController : MonoBehaviour
     {
         public int price;
         public int satisfaction;
+        public Item item;
     }
 
     public int queuePosition = 0;
@@ -17,6 +19,7 @@ public class CustomerController : MonoBehaviour
 
     [Header("Request")]
     public GameObject bubble = null;
+    public Image icon = null;
     public int priceMin = 0;
     public int priceMax = 0;
 
@@ -30,20 +33,30 @@ public class CustomerController : MonoBehaviour
 
     public int score { get { return Mathf.RoundToInt(_currentRequest.price * _currentRequest.satisfaction); } }
 
-    public void SetReady(int inGameIndex)
+    public ItemRequest currentRequest { get { return _currentRequest; } }
+
+    public bool SetReady(int inGameIndex)
     {
         _index = inGameIndex;
         _queuePosition = new Vector3(6.5f - (1.4f * _index), 0f, 3f);
         _currentPosition = CustomerManager.instance.spawnPosition;
 
-        Spawn();
-        SetOutfit();
-        SetItemRequest();
+        // Find an item available
+        if (SetItemRequest())
+        {
+            Spawn();
+            SetOutfit();
 
-        bubble.SetActive(false);
-        gameObject.SetActive(true);
+            bubble.SetActive(false);
+            gameObject.SetActive(true);
 
-        MoveToQueuePosition();
+            MoveToQueuePosition();
+
+            return true;
+        }
+
+        // If not abort the spawn
+        return false;
     }
 
     private void MoveToQueuePosition()
@@ -70,10 +83,21 @@ public class CustomerController : MonoBehaviour
         body.material = outfits[Random.Range(0, outfits.Length)];
     }
 
-    private void SetItemRequest()
+    private bool SetItemRequest()
     {
-        _currentRequest.price = Random.Range(priceMin, priceMax);
-        _currentRequest.satisfaction = 1; // Percentage to apply on price once request complete
+        _currentRequest.item = ItemSpawner.instance.RequestItem();
+
+        if (_currentRequest.item != null)
+        {
+            _currentRequest.price = Random.Range(priceMin, priceMax);
+            _currentRequest.satisfaction = 1; // Percentage to apply on price once request complete
+
+            icon.sprite = _currentRequest.item.icon;
+
+            return true;
+        }
+
+        return false;
     }
 
     private void OnQueuePositionCompleted()

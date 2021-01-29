@@ -23,6 +23,7 @@ public class PlayerInteractions : MonoBehaviour {
     private float maxDistance = 0.3f;
 
     bool _canInteractWithItem = true;
+    private GameObject _currentChest;
 
     private void Start() {
     }
@@ -63,31 +64,52 @@ public class PlayerInteractions : MonoBehaviour {
         }
 
         //if we press the button of choice
-        if(Input.GetButtonDown("Action"))
+        if (Input.GetButtonDown("Action"))
         {
             PlayerAnimator.SetTrigger("Pick");
-            if(_canInteractWithItem) { 
-                if(currentlyPickedUpObject == null)
+            if (_canInteractWithItem)
+            {
+                if (currentlyPickedUpObject == null)
                 {
-                    if(lookObject != null)
+                    if (lookObject != null)
                     {
                         PickUpObject();
                     }
-                } else
+                }
+                else
                 {
-                    if(lookCustomer != null)
+                    if (lookCustomer != null)
                     {
                         CustomerController customer = lookCustomer.transform.GetComponent<CustomerController>();
-                        CustomerManager.instance.CompleteCustomerRequest(customer);
-                        currentlyPickedUpObject.SetActive(false);
-                        currentlyPickedUpObject.transform.parent = null;
-                        currentlyPickedUpObject = null;
-                        pickupRB.drag = 1;
-                        pickupRB.useGravity = true;
+
+                        if (currentlyPickedUpObject != null)
+                        {
+                            Item item = currentlyPickedUpObject.GetComponent<Item>();
+
+                            if (CustomerManager.instance.CompleteCustomerRequest(customer, item))
+                            {
+                                currentlyPickedUpObject.SetActive(false);
+                                currentlyPickedUpObject.transform.parent = null;
+                                currentlyPickedUpObject = null;
+                                pickupRB.drag = 1;
+                                pickupRB.useGravity = true;
+                            }
+                        }
                     } else
                     {
                         BreakConnection();
                     }
+                }
+            }
+
+            if (_currentChest != null)
+            {
+                Inventory chest = _currentChest.GetComponent<Inventory>();
+                chest.ChestUI.gameObject.SetActive(true);
+                if (currentlyPickedUpObject != null)
+                {
+                    chest.Add(currentlyPickedUpObject.GetComponent<Item>());
+                    StoreObject();
                 }
             }
         }
@@ -102,7 +124,7 @@ public class PlayerInteractions : MonoBehaviour {
                 {
                     CustomerController customer = hit.transform.GetComponent<CustomerController>();
 
-                    CustomerManager.instance.CompleteCustomerRequest(customer);
+                    CustomerManager.instance.CompleteCustomerRequest(customer, ItemSpawner.instance.RequestItem());
                 }
 
                 // Do something with the object that was hit by the raycast.
@@ -154,6 +176,8 @@ public class PlayerInteractions : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Chest")
         {
+            other.gameObject.transform.GetComponent<MeshRenderer>().material.SetFloat("_OutlineWidth", 0.02f);
+            _currentChest = other.gameObject;
             _canInteractWithItem = false;
         }
     }
@@ -161,23 +185,10 @@ public class PlayerInteractions : MonoBehaviour {
     private void OnTriggerExit(Collider other) {
         if(other.gameObject.tag == "Chest")
         {
+            other.gameObject.transform.GetComponent<MeshRenderer>().material.SetFloat("_OutlineWidth", 0.0f);
+            _currentChest = null;
             _canInteractWithItem = true;
         }
     }
 
-    private void OnTriggerStay(Collider other) {
-        if(other.gameObject.tag == "Chest")
-        {
-            if(Input.GetButtonDown("Action"))
-            {
-                Inventory chest = other.gameObject.GetComponent<Inventory>();
-                chest.ChestUI.gameObject.SetActive(true);
-                if(currentlyPickedUpObject != null)
-                {
-                    chest.Add(currentlyPickedUpObject.GetComponent<Item>());
-                    StoreObject();
-                }
-            }
-        }
-    }
 }
