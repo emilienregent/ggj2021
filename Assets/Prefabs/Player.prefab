@@ -326,9 +326,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCollider: {fileID: 4005438599926892718}
   sphereCastRadius: 0.5
-  interactableLayerIndex: 8
+  interactableItemLayer: 8
+  interactableCustomerLayer: 9
   SphereCastPos: {fileID: 6165883992225017372}
   lookObject: {fileID: 0}
+  lookCustomer: {fileID: 0}
   pickupParent: {fileID: 2964024762694517804}
   currentlyPickedUpObject: {fileID: 0}
   maxDistance: 0.3

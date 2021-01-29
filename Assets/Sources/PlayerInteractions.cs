@@ -7,9 +7,13 @@ public class PlayerInteractions : MonoBehaviour {
 
     [Header("InteractableInfo")]
     public float sphereCastRadius = 0.5f;
-    public int interactableLayerIndex;
+    public int interactableItemLayer;
+    public int interactableCustomerLayer;
     public Transform SphereCastPos;
+    [SerializeField]
     public GameObject lookObject;
+    [SerializeField]
+    public GameObject lookCustomer;
 
     [Header("Pickup")]
     [SerializeField] private Transform pickupParent = null;
@@ -25,18 +29,26 @@ public class PlayerInteractions : MonoBehaviour {
     void Update() {
         //Here we check if we're currently looking at an interactable object
         RaycastHit hit;
-        if(Physics.SphereCast(SphereCastPos.position, sphereCastRadius, transform.TransformDirection(Vector3.forward), out hit, maxDistance, 1 << interactableLayerIndex))
+        if(Physics.SphereCast(SphereCastPos.position, sphereCastRadius, transform.TransformDirection(Vector3.forward), out hit, maxDistance, 1 << interactableItemLayer))
         {
-            lookObject = hit.collider.transform.root.gameObject;
-
-        } else
+            lookObject = hit.collider.transform.gameObject;
+        } 
+        else
         {
             lookObject = null;
+        }
 
+        if (Physics.SphereCast(SphereCastPos.position, sphereCastRadius, transform.TransformDirection(Vector3.forward), out hit, maxDistance, 1 << interactableCustomerLayer))
+        {
+            lookCustomer = hit.collider.transform.gameObject;
+        }
+        else
+        {
+            lookCustomer = null;
         }
 
         //if we press the button of choice
-        if(Input.GetButtonDown("Action"))
+        if (Input.GetButtonDown("Action"))
         {
             //and we're not holding anything
             if(currentlyPickedUpObject == null)
@@ -44,7 +56,6 @@ public class PlayerInteractions : MonoBehaviour {
                 //and we are looking an interactable object
                 if(lookObject != null)
                 {
-
                     PickUpObject();
                 }
 
@@ -52,7 +63,15 @@ public class PlayerInteractions : MonoBehaviour {
             //if we press the pickup button and have something, we drop it
             else
             {
-                BreakConnection();
+                if (lookCustomer != null) // we are looking at a customer ? give the item
+                {
+                    CustomerController customer = lookCustomer.transform.GetComponent<CustomerController>();
+                    CustomerManager.instance.CompleteCustomerRequest(customer);
+                    currentlyPickedUpObject.SetActive(false);
+                } else
+                {
+                    BreakConnection();
+                }
             }
         }
 
