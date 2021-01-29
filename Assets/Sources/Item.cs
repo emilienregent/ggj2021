@@ -22,6 +22,11 @@ public class Item : MonoBehaviour
         CurrentState = ItemState.Available;
     }
 
+    private void OnEnable()
+    {
+        CurrentState = ItemState.Available;
+    }
+
     private void OnDisable()
     {
         CurrentState = ItemState.Queued;
