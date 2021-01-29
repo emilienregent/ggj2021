@@ -33,10 +33,16 @@ public class PlayerInteractions : MonoBehaviour {
         RaycastHit hit;
         if(Physics.SphereCast(SphereCastPos.position, sphereCastRadius, transform.TransformDirection(Vector3.forward), out hit, maxDistance, 1 << interactableItemLayer))
         {
+            if (lookObject != null)
+            {
+                lookObject.transform.GetComponent<Item>().meshRenderer.material.SetFloat("_OutlineWidth", 0.0f);
+            }
             lookObject = hit.collider.transform.gameObject;
+            lookObject.transform.GetComponent<Item>().meshRenderer.material.SetFloat("_OutlineWidth", 0.02f);
         } 
         else
         {
+            lookObject.transform.GetComponent<Item>().meshRenderer.material.SetFloat("_OutlineWidth", 0.0f);
             lookObject = null;
         }
 
