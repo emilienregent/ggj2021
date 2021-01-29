@@ -40,7 +40,6 @@ public class ItemSpawner : MonoBehaviour
     {
         Item newItem = null;
         Item itemToInstantiate = AvailableItems[Random.Range(0, AvailableItems.Count)];
-        Debug.Log(itemToInstantiate.Name);
 
         // First, check if we have this item in available in the pool
         foreach(Item item in _pool)
