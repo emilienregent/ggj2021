@@ -66,7 +66,7 @@ public class PlayerInteractions : MonoBehaviour {
                 {
                     CustomerController customer = hit.transform.GetComponent<CustomerController>();
 
-                    CustomerManager.instance.ReleaseCustomer(customer);
+                    CustomerManager.instance.CompleteCustomerRequest(customer);
                 }
 
                 // Do something with the object that was hit by the raycast.

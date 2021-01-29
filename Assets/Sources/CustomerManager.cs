@@ -115,6 +115,12 @@ public class CustomerManager : MonoBehaviour
         }
 
         inGameCustomers.Remove(customerController.index);
+    }
 
+    public void CompleteCustomerRequest(CustomerController customerController)
+    {
+        GameManager.instance.UpdateScore(customerController.score);
+
+        ReleaseCustomer(customerController);
     }
 }

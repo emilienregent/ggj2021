@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class ScoreController : MonoBehaviour
@@ -9,34 +8,33 @@ public class ScoreController : MonoBehaviour
     private int _currentScore = 0;
     private int _tweenId = -1;
 
-    public void SetScore(int score)
+    private void Start()
+    {
+        GameManager.instance.ScoreUpdated += OnScoreUpdated;
+    }
+
+    public void OnScoreUpdated(int score)
     {
         if (LeanTween.isTweening(_tweenId) == true)
         {
             LeanTween.cancel(gameObject, _tweenId);
         }
 
-        _tweenId = LeanTween.value(_currentScore, score, 1f).setOnUpdate(OnScoreAnimationUpdated).id;
+        _tweenId = LeanTween.value(_currentScore, score, 1f).setOnUpdate(OnAnimationUpdated).id;
     }
 
-    private void Start()
-    {
-        StartCoroutine(FakeUpdateScore());
-    }
-
-    private void OnScoreAnimationUpdated(float progress)
+    private void OnAnimationUpdated(float progress)
     {
         _currentScore = Mathf.RoundToInt(progress);
 
         label.text = _currentScore.ToString();
     }
 
-    private IEnumerator FakeUpdateScore()
+    private void OnDestroy()
     {
-        yield return new WaitForSeconds(Random.Range(1f, 3f));
-
-        SetScore(_currentScore + Random.Range(5, 10));
-
-        StartCoroutine(FakeUpdateScore());
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.ScoreUpdated -= OnScoreUpdated;
+        }
     }
 }
