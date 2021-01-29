@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2012764568094120618}
   - component: {fileID: 1362348361076067515}
   - component: {fileID: 7743658554553475846}
-  m_Layer: 0
+  - component: {fileID: 6800684500872145792}
+  m_Layer: 8
   m_Name: Wizard Hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,6 +63,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.216298, y: 0.75258756, z: 1}
   m_Center: {x: -0.10814901, y: 0.37629378, z: 0}
+--- !u!114 &6800684500872145792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8964561693352732234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad4cc062d4ca0a646bcc75716abf0d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Wizard Hat
 --- !u!1001 &2104509217347634463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72,6 +86,10 @@ PrefabInstance:
     - target: {fileID: 1514204485755958, guid: 8ecea9a52e5a9b14e95aadbba8594f09, type: 3}
       propertyPath: m_Name
       value: wizardHat
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514204485755958, guid: 8ecea9a52e5a9b14e95aadbba8594f09, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4659563629344056, guid: 8ecea9a52e5a9b14e95aadbba8594f09, type: 3}
       propertyPath: m_LocalPosition.x

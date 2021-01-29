@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 3902310112167231795}
   - component: {fileID: 2819720760040248219}
   - component: {fileID: 8600318913635300545}
-  m_Layer: 0
+  - component: {fileID: -3486434156583238789}
+  m_Layer: 8
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,6 +63,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6597385, y: 0.26780963, z: 1}
   m_Center: {x: 0.7604637, y: 0.010666728, z: 0}
+--- !u!114 &-3486434156583238789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7791861894157589547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad4cc062d4ca0a646bcc75716abf0d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Sword
 --- !u!1001 &969939999945254903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72,6 +86,10 @@ PrefabInstance:
     - target: {fileID: 1226314932988728, guid: 3341332030f352140a7336db5b5d1c35, type: 3}
       propertyPath: m_Name
       value: sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 1226314932988728, guid: 3341332030f352140a7336db5b5d1c35, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4227315494894624, guid: 3341332030f352140a7336db5b5d1c35, type: 3}
       propertyPath: m_LocalPosition.x
