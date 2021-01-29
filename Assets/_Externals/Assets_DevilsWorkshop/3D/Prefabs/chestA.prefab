@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2014308421741724400}
   - component: {fileID: 2722864877689204168}
   - component: {fileID: 7481472188959145169}
+  - component: {fileID: 705161190082801027}
   m_Layer: 0
   m_Name: chestA
   m_TagString: Chest
@@ -125,6 +126,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 1.5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!95 &705161190082801027
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619717194498572}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 794646570514e0f4aa488182408458a6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2027280035532507526
 GameObject:
   m_ObjectHideFlags: 0

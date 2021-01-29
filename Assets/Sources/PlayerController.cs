@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator PlayerAnimator;
     private const float DEATH_TRESHOLD = 5f;
 
     float _moveSpeed = 5f;
@@ -37,6 +38,10 @@ public class PlayerController : MonoBehaviour
         if(movement != Vector3.zero)
         {
             transform.forward = movement;
+            PlayerAnimator.SetBool("Running", true);
+        } else
+        {
+            PlayerAnimator.SetBool("Running", false);
         }
     }
 }

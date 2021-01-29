@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour {
     public Collider PlayerCollider;
-
+    public Animator PlayerAnimator;
     [Header("InteractableInfo")]
     public float sphereCastRadius = 0.5f;
     public int interactableItemLayer;
@@ -65,6 +65,7 @@ public class PlayerInteractions : MonoBehaviour {
         //if we press the button of choice
         if(Input.GetButtonDown("Action"))
         {
+            PlayerAnimator.SetTrigger("Pick");
             if(_canInteractWithItem) { 
                 if(currentlyPickedUpObject == null)
                 {
