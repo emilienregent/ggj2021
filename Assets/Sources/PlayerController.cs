@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private const float DEATH_TRESHOLD = 5f;
+
     float _moveSpeed = 5f;
 
     // Start is called before the first frame update
@@ -16,6 +18,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
+
+        Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
+
+        if (transform.position.y < -DEATH_TRESHOLD)
+        {
+            transform.position = Vector3.zero;
+        }
     }
 
     private void Move() {

@@ -245,10 +245,10 @@ MonoBehaviour:
   body: {fileID: 4172926589871266286}
   face: {fileID: 4172752246228795850}
   outfits:
-  - {fileID: 2100000, guid: 8d2fdc1d7c61cc343a929d9c8569a82a, type: 2}
-  - {fileID: 2100000, guid: a35ebf5fb8ac918479e9331abda9854a, type: 2}
-  - {fileID: 2100000, guid: 5a75d955eae4e764f8bccc929f5f3fc9, type: 2}
-  - {fileID: 2100000, guid: 462a2962168082e4f8ddc9280c090bb9, type: 2}
+  - {fileID: 2100000, guid: 71b72d356603227468d5559bac0a5f42, type: 2}
+  - {fileID: 2100000, guid: d53d780e322f47b4e909df4029ea5426, type: 2}
+  - {fileID: 2100000, guid: 177e68618027b264fad614a843bc59c4, type: 2}
+  - {fileID: 2100000, guid: 949f157829993a04b8f2bfff07556688, type: 2}
   bubble: {fileID: 2894021190268026200}
   priceMin: 5
   priceMax: 75
@@ -319,6 +319,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23825179699071734, guid: d9d2cfaad561dfe4aa51cf3e524fcfc2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 71b72d356603227468d5559bac0a5f42, type: 2}
+    - target: {fileID: 23936709444834002, guid: d9d2cfaad561dfe4aa51cf3e524fcfc2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 71b72d356603227468d5559bac0a5f42, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9d2cfaad561dfe4aa51cf3e524fcfc2, type: 3}
 --- !u!4 &4157616230103432246 stripped

@@ -12,6 +12,7 @@ public class Item : MonoBehaviour
     public string Name;
     public ItemState CurrentState;
     public Sprite icon;
+    public MeshRenderer meshRenderer;
 
     // Start is called before the first frame update
     void Start()
