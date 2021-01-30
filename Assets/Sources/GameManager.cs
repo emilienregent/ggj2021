@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
             
             case GameState.Wave:
                 ItemSpawnInterval = 3f;
-                CustomerSpawnInterval -= Mathf.Min(MaxCustomerSpawnInterval, Mathf.Max(MinCustomerSpawnInterval, CustomerSpawnOverTime.Evaluate(_totalCustomer)));
+                CustomerSpawnInterval = Mathf.Min(MaxCustomerSpawnInterval, Mathf.Max(MinCustomerSpawnInterval, (MaxCustomerSpawnInterval - CustomerSpawnOverTime.Evaluate(GameTime))));
                 break;
         }
     }
