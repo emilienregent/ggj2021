@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     public Color WavePhaseColor = Color.white;
     public int[] RequiredClientPerWave;
 
+    public SlidingText PreparationPhaseAnnounce;
+    public SlidingText WavePhaseAnnounce;
+
     [Header("Configuration - Items")]
     public float ItemSpawDelay = 1f;
     public float ItemSpawnInterval = 2f;
@@ -127,8 +130,9 @@ public class GameManager : MonoBehaviour
         //{
         CurrentTimer = PreparationPhaseDuration;
         CurrentGameState = GameState.Preparation;
-
+        PreparationPhaseAnnounce.enabled = true;
         UpdateSpawnInterval();
+        CurrentWave++;
         //}
     }
 
@@ -136,6 +140,11 @@ public class GameManager : MonoBehaviour
     {
         CurrentTimer = WavePhaseDuration;
         CurrentGameState = GameState.Wave;
+
+        WavePhaseAnnounce.PanelText.text = "Wave " + CurrentWave.ToString() + " / "+ MaxWave.ToString();
+        WavePhaseAnnounce.enabled = true;
+
+
 
         UpdateSpawnInterval();
     }
