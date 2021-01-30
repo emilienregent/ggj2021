@@ -25,8 +25,12 @@ public class ItemSpawner : MonoBehaviour
     public List<Item> Category1Items = new List<Item>();
     public List<Item> Category2Items = new List<Item>();
     public List<Item> Category3Items = new List<Item>();
+    public List<Item> Category4Items = new List<Item>();
+    public List<Item> Category5Items = new List<Item>();
     public int minWaveCategory2 = 2;
     public int minWaveCategory3 = 5;
+    public int minWaveCategory4 = 5;
+    public int minWaveCategory5 = 5;
 
     [SerializeField]
     private List<Item> _availableItems = new List<Item>();
@@ -112,6 +116,16 @@ public class ItemSpawner : MonoBehaviour
         if (GameManager.instance.CurrentWave >= minWaveCategory3)
         {
             _availableItems = _availableItems.Union(Category3Items).ToList();
+        }
+
+        if (GameManager.instance.CurrentWave >= minWaveCategory4)
+        {
+            _availableItems = _availableItems.Union(Category4Items).ToList();
+        }
+
+        if (GameManager.instance.CurrentWave >= minWaveCategory5)
+        {
+            _availableItems = _availableItems.Union(Category5Items).ToList();
         }
 
     }

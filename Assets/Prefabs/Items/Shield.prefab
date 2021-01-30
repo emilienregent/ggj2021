@@ -87,6 +87,17 @@ PrefabInstance:
       propertyPath: Name
       value: Shield
       objectReference: {fileID: 0}
+    - target: {fileID: 6319927952961939501, guid: 3d9f5898a39a21e4aadb04954f4288f6,
+        type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 96a6b321511411e499c86048264b3750,
+        type: 3}
+    - target: {fileID: 6319927952961939501, guid: 3d9f5898a39a21e4aadb04954f4288f6,
+        type: 3}
+      propertyPath: meshRenderer
+      value: 
+      objectReference: {fileID: 9170223718995921671}
     - target: {fileID: 7109870406815617999, guid: 3d9f5898a39a21e4aadb04954f4288f6,
         type: 3}
       propertyPath: m_IsActive
@@ -162,3 +173,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4000c0750d43fd4a96bfe6e9a15d5e8, type: 3}
+--- !u!23 &9170223718995921671 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23047506494496440, guid: c4000c0750d43fd4a96bfe6e9a15d5e8,
+    type: 3}
+  m_PrefabInstance: {fileID: 9156605804744086975}
+  m_PrefabAsset: {fileID: 0}
