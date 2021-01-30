@@ -43,7 +43,7 @@ public class CustomerManager : MonoBehaviour
     }
 
     private void Update() {
-        switch(GameManager.instance._currentGameState)
+        switch(GameManager.instance.CurrentGameState)
         {
             case GameState.Preparation:
                 int currentCustomerCount = _inGameCustomers.Count;
@@ -83,22 +83,9 @@ public class CustomerManager : MonoBehaviour
        
     }
 
-    public void EnableSpawnCustomerManager()
-    {
-        StartCoroutine(SpawnFirstCustomer());
-    }
-
-    private IEnumerator SpawnFirstCustomer()
-    {
-        yield return new WaitForSeconds(GameManager.instance.CustomerSpawDelay);
-
-        // Spawn first customer for FTUE
-        SpawnCustomer(CustomerPrefabs[0]);
-    }
-
     private void StartSpawnCustomers()
     {
-        if (_customerSpawnStarted == false)
+        if (_customerSpawnStarted == false && ItemSpawner.instance.Pool.Count > 0)
         {
             _customerSpawnStarted = true;
         }

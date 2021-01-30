@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    [SerializeField] private GameState _currentGameState = GameState.Tutorial;
+    [SerializeField] private float _currentTimer;
+
+    [Space]
+
     [Header("Configuration - Game")]
     [Tooltip("Duration of the game in seconds. At 0 it's Game Over")]
     public int MaxGameDuration = 120;
@@ -28,10 +33,6 @@ public class GameManager : MonoBehaviour
     public float PreparationPhaseDuration = 10;
     public float WavePhaseDuration = 30;
     public int[] RequiredClientPerWave;
-    public GameState _currentGameState = GameState.Tutorial;
-
-    float _currentPreparationPhaseDuration;
-    float _currentWavePhaseDuration;
 
     [Header("Configuration - Items")]
     public float ItemSpawDelay = 1f;
@@ -54,45 +55,87 @@ public class GameManager : MonoBehaviour
     public int currentScore = 0;
 
     public Action<int> ScoreUpdated = null;
+    public Action<float> TimerUpdated = null;
+    public Action<GameState> StateUpdated = null;
 
-    private void Start() {
-        _currentPreparationPhaseDuration = PreparationPhaseDuration;
-        _currentWavePhaseDuration = WavePhaseDuration;
+    public float CurrentTimer
+    {
+        get { return _currentTimer; }
+        set
+        {
+            _currentTimer = value;
+
+            if (TimerUpdated != null)
+            {
+                TimerUpdated.Invoke(value);
+            }
+        }
     }
 
-    private void Update() {
-        switch(GameManager.instance._currentGameState)
+    public GameState CurrentGameState
+    {
+        get { return _currentGameState; }
+        set
+        {
+            _currentGameState = value;
+
+            if (StateUpdated != null)
+            {
+                StateUpdated.Invoke(value);
+            }
+        }
+    }
+
+    private void Update()
+    {
+        switch(CurrentGameState)
         {
             case GameState.Preparation:
-                _currentPreparationPhaseDuration -= Time.deltaTime;
-                if(_currentPreparationPhaseDuration <= 0)
+                CurrentTimer -= Time.deltaTime;
+
+                if(CurrentTimer <= 0)
                 {
-                    _currentGameState = GameState.Wave;
-                    _currentPreparationPhaseDuration = PreparationPhaseDuration;
-                    UpdateSpawnInterval();
+                     StartWavePhase();
                 }
+
                 break;
             case GameState.Wave:
-                _currentWavePhaseDuration -= Time.deltaTime;
-                if(_currentWavePhaseDuration <= 0)
-                {
-                    //if(_totalCustomer < RequiredClientPerWave[CurrentWave])
-                    //{
-                    //    _currentGameState = GameState.Gameover;
-                    //} else
-                    //{
-                        _currentGameState = GameState.Preparation;
-                        UpdateSpawnInterval();
-                    //}
 
-                _currentWavePhaseDuration = WavePhaseDuration;
+                CurrentTimer -= Time.deltaTime;
+
+                if (CurrentTimer <= 0)
+                {
+                    StartPreparationPhase();
                 }
+
                 break;
             case GameState.Gameover:
                 break;
             case GameState.Tutorial:
                 break;
         }
+    }
+
+    private void StartPreparationPhase()
+    {
+        //if(_totalCustomer < RequiredClientPerWave[CurrentWave])
+        //{
+        //    _currentGameState = GameState.Gameover;
+        //} else
+        //{
+        CurrentTimer = PreparationPhaseDuration;
+        CurrentGameState = GameState.Preparation;
+
+        UpdateSpawnInterval();
+        //}
+    }
+
+    private void StartWavePhase()
+    {
+        CurrentTimer = WavePhaseDuration;
+        CurrentGameState = GameState.Wave;
+
+        UpdateSpawnInterval();
     }
 
     public void UpdateScore(int score)
@@ -111,12 +154,12 @@ public class GameManager : MonoBehaviour
 
         if(CurrentWave == 0 && _totalCustomer == 1)
         {
-            _currentGameState = GameState.Preparation;
+            CurrentGameState = GameState.Preparation;
         }
     }
 
-    void UpdateSpawnInterval() {
-        switch(GameManager.instance._currentGameState)
+    private void UpdateSpawnInterval() {
+        switch(CurrentGameState)
         {
             case GameState.Preparation:
                 ItemSpawnInterval = 3f;

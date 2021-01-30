@@ -53,7 +53,7 @@ public class ItemSpawner : MonoBehaviour
 
     private void Update() {
 
-        switch(GameManager.instance._currentGameState)
+        switch(GameManager.instance.CurrentGameState)
         {
             case GameState.Preparation:
                 _canSpawn = true;
@@ -112,10 +112,6 @@ public class ItemSpawner : MonoBehaviour
             newItem = Instantiate(itemToInstantiate, transform);
 
             _pool.Add(newItem);
-            if(_pool.Count == 1)
-            {
-                CustomerManager.instance.EnableSpawnCustomerManager();
-            }
         }
     }
 
