@@ -22,7 +22,14 @@ public class ItemSpawner : MonoBehaviour
     #endregion
 
     [Header("Configuration")]
-    public List<Item> AvailableItems = new List<Item>();
+    public List<Item> Category1Items = new List<Item>();
+    public List<Item> Category2Items = new List<Item>();
+    public List<Item> Category3Items = new List<Item>();
+    public int minWaveCategory2 = 2;
+    public int minWaveCategory3 = 5;
+
+    [SerializeField]
+    private List<Item> _availableItems = new List<Item>();
 
     [SerializeField]
     private List<Item> _pool = new List<Item>();
@@ -45,6 +52,7 @@ public class ItemSpawner : MonoBehaviour
     private void Start()
     {
         timer = GameManager.instance.ItemSpawDelay;
+        _availableItems = _availableItems.Union(Category1Items).ToList();
         //if(AvailableItems.Count > 0)
         //{
         //    InvokeRepeating("SpawnItem", GameManager.instance.ItemSpawDelay, GameManager.instance.ItemSpawnInterval);
@@ -77,7 +85,7 @@ public class ItemSpawner : MonoBehaviour
             timer -= Time.deltaTime;
             if(timer <= 0)
             {
-                if(AvailableItems.Count > 0)
+                if(_availableItems.Count > 0)
                 {
                     SpawnItem();
                 }
@@ -86,10 +94,24 @@ public class ItemSpawner : MonoBehaviour
         }
     }
 
+    public void RefreshItemList()
+    {
+        if (GameManager.instance.CurrentWave >= minWaveCategory2)
+        {
+            _availableItems = _availableItems.Union(Category2Items).ToList();
+        }
+
+        if (GameManager.instance.CurrentWave >= minWaveCategory3)
+        {
+            _availableItems = _availableItems.Union(Category3Items).ToList();
+        }
+    }
+
     private void SpawnItem()
     {
         Item newItem = null;
-        Item itemToInstantiate = AvailableItems[Random.Range(0, AvailableItems.Count)];
+
+        Item itemToInstantiate = _availableItems[Random.Range(0, _availableItems.Count)];
 
         // [TODO] Régler le problème de "respawn" quand un objet est reprit depuis la pool (tourne en continue sur le spawner)
         // First, check if we have this item in available in the pool

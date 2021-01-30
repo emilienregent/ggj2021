@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour
         if(previousState != GameState.Tutorial)
         {
             CurrentWave++;
+            ItemSpawner.instance.RefreshItemList();
         }
         _totalCustomer = 0;
         WaveGoal.text = _totalCustomer + " / " + RequiredClientPerWave[CurrentWave];
@@ -151,8 +152,6 @@ public class GameManager : MonoBehaviour
 
         WavePhaseAnnounce.PanelText.text = "Wave " + (CurrentWave + 1).ToString() + " / "+ MaxWave.ToString();
         WavePhaseAnnounce.enabled = true;
-
-
 
         UpdateSpawnInterval();
     }
