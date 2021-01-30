@@ -84,7 +84,7 @@ Animator:
   m_GameObject: {fileID: 3450284179733820310}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 401bf82f7ab678042abca0598ac9b0a7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1ee6ca455ccdcd84b9202ee35ead7a74, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -365,7 +365,7 @@ MonoBehaviour:
   interactableItemLayer: 8
   interactableCustomerLayer: 9
   SphereCastPos: {fileID: 6165883992225017372}
-  lookObject: {fileID: 0}
+  lookedItem: {fileID: 0}
   lookCustomer: {fileID: 0}
   pickupParent: {fileID: 2964024762694517804}
   currentlyPickedUpObject: {fileID: 0}
