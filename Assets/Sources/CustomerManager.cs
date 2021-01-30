@@ -46,20 +46,19 @@ public class CustomerManager : MonoBehaviour
         switch(GameManager.instance.CurrentGameState)
         {
             case GameState.Preparation:
-                int currentCustomerCount = _inGameCustomers.Count;
-                for(int i = 0;i < currentCustomerCount; i++)
-                {
-                    ReleaseCustomer(_inGameCustomers.First().Value);
-                }
+                ReleaseAllCustomers();
+                _customerSpawnStarted = false;
+                break;
 
-                _customerSpawnStarted = false;
-                break;
             case GameState.Gameover:
+                ReleaseAllCustomers();
                 _customerSpawnStarted = false;
                 break;
+
             case GameState.Wave:
                 StartSpawnCustomers();
                 break;
+
             case GameState.Tutorial:
                 if(InGameCustomersCount <= 0)
                 {
@@ -150,6 +149,15 @@ public class CustomerManager : MonoBehaviour
 
         //GameObject.Destroy(customerController.gameObject);
         //customerController.gameObject.SetActive(false);
+    }
+
+    public void ReleaseAllCustomers()
+    {
+        int currentCustomerCount = _inGameCustomers.Count;
+        for (int i = 0; i < currentCustomerCount; i++)
+        {
+            ReleaseCustomer(_inGameCustomers.First().Value);
+        }
     }
 
     public bool CompleteCustomerRequest(CustomerController customerController, Item item)

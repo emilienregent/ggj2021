@@ -17,6 +17,11 @@ public class TimerController : MonoBehaviour
 
     private void OnTimerUpdated(float timeLeft)
     {
+        if(timeLeft < 0)
+        {
+            return;
+        }
+
         int minutes = Mathf.FloorToInt(timeLeft / 60f);
         int seconds = Mathf.FloorToInt(timeLeft - (minutes * 60f));
 

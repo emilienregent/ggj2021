@@ -106,30 +106,40 @@ public class GameManager : MonoBehaviour
                 }
 
                 break;
-            case GameState.Wave:
 
+            case GameState.Wave:
                 CurrentTimer -= Time.deltaTime;
 
                 if (CurrentTimer <= 0)
                 {
-                    StartPreparationPhase();
+                    EndOfWave();
+                    
                 }
 
                 break;
+
             case GameState.Gameover:
                 break;
+
             case GameState.Tutorial:
                 break;
         }
     }
 
+    private void EndOfWave()
+    {
+        if (_totalCustomer < RequiredClientPerWave[CurrentWave])
+        {
+            PopupController.instance.GameOverPopup.Display();
+            _currentGameState = GameState.Gameover;
+        } else
+        {
+            StartPreparationPhase();
+        }
+    }
+
     private void StartPreparationPhase()
     {
-        //if(_totalCustomer < RequiredClientPerWave[CurrentWave])
-        //{
-        //    _currentGameState = GameState.Gameover;
-        //} else
-        //{
         CurrentTimer = PreparationPhaseDuration;
         GameState previousState = CurrentGameState;
         CurrentGameState = GameState.Preparation;
@@ -142,7 +152,6 @@ public class GameManager : MonoBehaviour
         }
         _totalCustomer = 0;
         WaveGoal.text = _totalCustomer + " / " + RequiredClientPerWave[CurrentWave];
-        //}
     }
 
     private void StartWavePhase()

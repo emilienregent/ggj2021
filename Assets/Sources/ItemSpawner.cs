@@ -66,12 +66,20 @@ public class ItemSpawner : MonoBehaviour
             case GameState.Preparation:
                 _canSpawn = true;
                 break;
+
             case GameState.Gameover:
-                _canSpawn = false;
+                GameManager.instance.ItemSpawnInterval = 0;
+                if(_pool.Count > 200)
+                {
+                    _canSpawn = false;
+                }
+                _canSpawn = true;
                 break;
+
             case GameState.Wave:
                 _canSpawn = true;
                 break;
+
             case GameState.Tutorial:
                 if(Pool.Count >= 1)
                 {
@@ -93,7 +101,7 @@ public class ItemSpawner : MonoBehaviour
             }
         }
     }
-
+    
     public void RefreshItemList()
     {
         if (GameManager.instance.CurrentWave >= minWaveCategory2)
@@ -105,7 +113,16 @@ public class ItemSpawner : MonoBehaviour
         {
             _availableItems = _availableItems.Union(Category3Items).ToList();
         }
+
     }
+    
+    //private void SpawnGameOverItems()
+    //{
+    //    for(int i = 0; i < 200; i++)
+    //    {
+    //        SpawnItem();
+    //    }
+    //}
 
     private void SpawnItem()
     {
