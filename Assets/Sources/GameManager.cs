@@ -195,11 +195,11 @@ public class GameManager : MonoBehaviour
         switch(CurrentGameState)
         {
             case GameState.Preparation:
-                ItemSpawnInterval = 3f;
+                ItemSpawnInterval = Mathf.Min(MaxItemSpawnInterval, Mathf.Max(MinItemSpawnInterval, (MaxItemSpawnInterval - ItemSpawnOverTime.Evaluate(GameTime))));
                 break;
             
             case GameState.Wave:
-                ItemSpawnInterval = Mathf.Min(MaxItemSpawnInterval, Mathf.Max(MinItemSpawnInterval, (MaxItemSpawnInterval - ItemSpawnOverTime.Evaluate(GameTime))));
+                ItemSpawnInterval = 3f;
                 CustomerSpawnInterval -= Mathf.Min(MaxCustomerSpawnInterval, Mathf.Max(MinCustomerSpawnInterval, CustomerSpawnOverTime.Evaluate(_totalCustomer)));
                 break;
         }
