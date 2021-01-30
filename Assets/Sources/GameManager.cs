@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-public enum GameState { Tutorial, Preparation, Wave, Gameover};
+public enum GameState { Intro, Tutorial, Preparation, Wave, Gameover};
 
 public class GameManager : MonoBehaviour
 {
