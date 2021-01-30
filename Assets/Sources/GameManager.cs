@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     public float CustomerSpawnInterval = 2f;
     public AnimationCurve CustomerSpawnOverTime;
 
-    float MaxItemSpawnInterval = 5f;
+    float MaxItemSpawnInterval = 3f;
     float MinItemSpawnInterval = 0.5f;
     float MaxCustomerSpawnInterval = 7f;
     float MinCustomerSpawnInterval = 0.5f;
@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
     public Action<int> ScoreUpdated = null;
     public Action<float> TimerUpdated = null;
     public Action<GameState> StateUpdated = null;
+
+    public float GameTime = 0f;
 
     public float CurrentTimer
     {
@@ -99,8 +101,9 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Preparation:
                 CurrentTimer -= Time.deltaTime;
+                GameTime += Time.deltaTime;
 
-                if(CurrentTimer <= 0)
+                if (CurrentTimer <= 0)
                 {
                      StartWavePhase();
                 }
@@ -109,6 +112,7 @@ public class GameManager : MonoBehaviour
 
             case GameState.Wave:
                 CurrentTimer -= Time.deltaTime;
+                GameTime += Time.deltaTime;
 
                 if (CurrentTimer <= 0)
                 {
@@ -122,6 +126,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Tutorial:
+                GameTime += Time.deltaTime;
                 break;
         }
     }
@@ -194,7 +199,7 @@ public class GameManager : MonoBehaviour
                 break;
             
             case GameState.Wave:
-                ItemSpawnInterval -= Mathf.Min(MaxCustomerSpawnInterval, Mathf.Max(MinCustomerSpawnInterval, CustomerSpawnOverTime.Evaluate(_totalCustomer)));
+                ItemSpawnInterval = Mathf.Min(MaxItemSpawnInterval, Mathf.Max(MinItemSpawnInterval, (MaxItemSpawnInterval - ItemSpawnOverTime.Evaluate(GameTime))));
                 CustomerSpawnInterval -= Mathf.Min(MaxCustomerSpawnInterval, Mathf.Max(MinCustomerSpawnInterval, CustomerSpawnOverTime.Evaluate(_totalCustomer)));
                 break;
         }
