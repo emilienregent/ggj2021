@@ -137,7 +137,7 @@ public class CustomerManager : MonoBehaviour
         {
             if(_slots[i] == false)
             {
-                if (customer.SetReady(i))
+                if (customer.Initialize(i))
                 {
                     // Add item to the dictionnary of in game items
                     _inGameCustomers.Add(customer.Index, customer);
@@ -158,7 +158,10 @@ public class CustomerManager : MonoBehaviour
         _slots[customerController.Index] = false;
 
         _inGameCustomers.Remove(customerController.Index);
-        GameObject.Destroy(customerController.gameObject);
+
+        customerController.Leave();
+
+        //GameObject.Destroy(customerController.gameObject);
         //customerController.gameObject.SetActive(false);
     }
 

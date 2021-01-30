@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CustomerController : MonoBehaviour
@@ -27,8 +28,7 @@ public class CustomerController : MonoBehaviour
     public float SatisfactionStepOverTime = 0.01f;
 
     private int _index = -1;
-    private int _tweenId = -1;
-    private Vector3 _currentPosition = Vector3.zero;
+    private Vector3 _spawnPosition = Vector3.zero;
     private Vector3 _queuePosition = Vector3.zero;
     private ItemRequest _currentRequest = new ItemRequest();
 
@@ -38,11 +38,11 @@ public class CustomerController : MonoBehaviour
 
     public ItemRequest CurrentRequest { get { return _currentRequest; } }
 
-    public bool SetReady(int inGameIndex)
+    public bool Initialize(int inGameIndex)
     {
         _index = inGameIndex;
         _queuePosition = new Vector3(6.5f - (1.75f * _index), 0f, 3f);
-        _currentPosition = CustomerManager.instance.SpawnPosition;
+        _spawnPosition = CustomerManager.instance.SpawnPosition;
 
         // Find an item available
         if (SetItemRequest())
@@ -53,7 +53,8 @@ public class CustomerController : MonoBehaviour
             bubble.SetActive(false);
             gameObject.SetActive(true);
 
-            MoveToQueuePosition();
+            // Move to align with queue position
+            MoveTo(new Vector3(_queuePosition.x, 0f, _spawnPosition.z), 1f).setOnComplete(MoveToDeskPosition);
 
             return true;
         }
@@ -62,28 +63,44 @@ public class CustomerController : MonoBehaviour
         return false;
     }
 
-    private void MoveToQueuePosition()
+    public void Leave()
     {
-        _tweenId = LeanTween.moveX(gameObject, _queuePosition.x, 1f).setOnComplete(OnQueuePositionCompleted).id;
+        bubble.SetActive(false);
+
+        LeanTween.rotateY(gameObject, 0f, 0.3f);
+
+        MoveTo(new Vector3(transform.position.x, 0f, _spawnPosition.z), 0.5f).setOnComplete(MoveToExitPosition);
+    }
+
+    private LTDescr MoveTo(Vector3 position, float duration)
+    {
+        return LeanTween.move(gameObject, position, duration);
     }
 
     private void MoveToDeskPosition()
     {
-        _tweenId = LeanTween.moveZ(gameObject, _queuePosition.z, 0.5f).id;
+        MoveTo(new Vector3(_queuePosition.x, 0f, _queuePosition.z), 0.5f);
+
+        LeanTween.rotateY(gameObject, 180f, 0.3f).setOnComplete(OnRotationCompleted);
+    }
+
+    private void MoveToExitPosition()
+    {
+        MoveTo(new Vector3(_queuePosition.x + 10f, 0f, _spawnPosition.z), 1f).setOnComplete(OnExitPositionCompleted);
     }
 
     private void Spawn()
     {
         gameObject.name = "Customer " + _index;
 
-        transform.position = _currentPosition;
+        transform.position = _spawnPosition;
         transform.rotation = Quaternion.Euler(0f, 90f, 0f);
     }
 
     private void SetOutfit()
     {
-        face.material = outfits[Random.Range(0, outfits.Length)];
-        body.material = outfits[Random.Range(0, outfits.Length)];
+        face.material = outfits[UnityEngine.Random.Range(0, outfits.Length)];
+        body.material = outfits[UnityEngine.Random.Range(0, outfits.Length)];
     }
 
     private bool SetItemRequest()
@@ -92,7 +109,7 @@ public class CustomerController : MonoBehaviour
 
         if (_currentRequest.item != null)
         {
-            _currentRequest.price = Random.Range(priceMin, priceMax);
+            _currentRequest.price = UnityEngine.Random.Range(priceMin, priceMax);
             _currentRequest.satisfaction = 1f; // Percentage to apply on price once request complete, decrease over time
             satisfactionGauge.fillAmount = _currentRequest.satisfaction;
 
@@ -117,11 +134,9 @@ public class CustomerController : MonoBehaviour
         }
     }
 
-    private void OnQueuePositionCompleted()
+    private void OnExitPositionCompleted()
     {
-        MoveToDeskPosition();
-
-        LeanTween.rotateY(gameObject, 180f, 0.3f).setOnComplete(OnRotationCompleted);
+        Destroy(gameObject);
     }
 
     private void OnRotationCompleted()
