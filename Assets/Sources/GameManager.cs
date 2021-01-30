@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    [Header("Configuration - Game")]
+    [Tooltip("Duration of the game in seconds. At 0 it's Game Over")]
+    public int MaxGameDuration = 120;
+
     [Header("Configuration - Items")]
     public float ItemSpawDelay = 1f;
     public float ItemSpawnInterval = 2f;
