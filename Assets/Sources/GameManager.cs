@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
         CurrentTimer = WavePhaseDuration;
         CurrentGameState = GameState.Wave;
 
-        WavePhaseAnnounce.PanelText.text = "Wave " + CurrentWave.ToString() + " / "+ MaxWave.ToString();
+        WavePhaseAnnounce.PanelText.text = "Wave " + (CurrentWave + 1).ToString() + " / "+ MaxWave.ToString();
         WavePhaseAnnounce.enabled = true;
 
 

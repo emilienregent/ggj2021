@@ -48,11 +48,13 @@ MonoBehaviour:
   MaxGameDuration: 120
   CurrentWave: 0
   MaxWave: 10
-  PreparationPhaseDuration: 10
-  WavePhaseDuration: 30
+  PreparationPhaseDuration: 30
+  WavePhaseDuration: 60
   PreparationPhaseColor: {r: 0.039215688, g: 0.23921569, b: 0.38431373, a: 1}
   WavePhaseColor: {r: 0.7176471, g: 0.08235294, b: 0.2509804, a: 1}
   RequiredClientPerWave: 03000000060000000c000000180000003000000060000000c0000000800100000003000000060000
+  PreparationPhaseAnnounce: {fileID: 0}
+  WavePhaseAnnounce: {fileID: 0}
   ItemSpawDelay: 3
   ItemSpawnInterval: 5
   ItemSpawnOverTime:
