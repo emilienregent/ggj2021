@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CustomerManager : MonoBehaviour
@@ -42,6 +43,34 @@ public class CustomerManager : MonoBehaviour
     }
 
     private void Update() {
+        switch(GameManager.instance._currentGameState)
+        {
+            case GameState.Preparation:
+                int currentCustomerCount = _inGameCustomers.Count;
+                for(int i = 0;i < currentCustomerCount; i++)
+                {
+                    ReleaseCustomer(_inGameCustomers.First().Value);
+                }
+
+                _customerSpawnStarted = false;
+                break;
+            case GameState.Gameover:
+                _customerSpawnStarted = false;
+                break;
+            case GameState.Wave:
+                StartSpawnCustomers();
+                break;
+            case GameState.Tutorial:
+                if(InGameCustomersCount <= 0)
+                {
+                    StartSpawnCustomers();
+                } else
+                {
+                    _customerSpawnStarted = false;
+                }
+                break;
+        }
+
         if(_customerSpawnStarted)
         {
             _timer -= Time.deltaTime;
@@ -146,7 +175,6 @@ public class CustomerManager : MonoBehaviour
             GameManager.instance.UpdateScore(customerController.Score);
 
             ReleaseCustomer(customerController);
-
             return true;
         }
 

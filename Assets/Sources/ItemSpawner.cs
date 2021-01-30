@@ -32,6 +32,8 @@ public class ItemSpawner : MonoBehaviour
 
     float timer;
 
+    bool _canSpawn = true;
+
     private void OnDrawGizmos()
     {
         // Draw a semitransparent cube at the transforms position
@@ -50,16 +52,38 @@ public class ItemSpawner : MonoBehaviour
     }
 
     private void Update() {
-        timer -= Time.deltaTime;
-        if(timer <= 0)
+
+        switch(GameManager.instance._currentGameState)
         {
-            if(AvailableItems.Count > 0)
-            {
-                SpawnItem();
-            }
-            timer = GameManager.instance.ItemSpawnInterval;
+            case GameState.Preparation:
+                _canSpawn = true;
+                break;
+            case GameState.Gameover:
+                _canSpawn = false;
+                break;
+            case GameState.Wave:
+                _canSpawn = true;
+                break;
+            case GameState.Tutorial:
+                if(Pool.Count >= 1)
+                {
+                    _canSpawn = false;
+                }
+                break;
         }
-        
+
+        if(_canSpawn)
+        {
+            timer -= Time.deltaTime;
+            if(timer <= 0)
+            {
+                if(AvailableItems.Count > 0)
+                {
+                    SpawnItem();
+                }
+                timer = GameManager.instance.ItemSpawnInterval;
+            }
+        }
     }
 
     private void SpawnItem()
