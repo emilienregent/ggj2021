@@ -25,6 +25,14 @@ public class GameManager : MonoBehaviour
     public float CustomerSpawDelay = 1f;
     public float CustomerSpawnInterval = 2f;
 
+    public AnimationCurve ItemSpawnOverTime;
+    float MaxItemSpawnInterval = 5f;
+    float MinItemSpawnInterval = 0.5f;
+    public AnimationCurve CustomerSpawnOverTime;
+    float MaxCustomerSpawnInterval = 7f;
+    float MinCustomerSpawnInterval = 0.5f;
+    int _totalCustomer = 0;
+
     [Header("Game Values")]
     public int currentScore = 0;
 
@@ -33,6 +41,10 @@ public class GameManager : MonoBehaviour
     public void UpdateScore(int score)
     {
         currentScore += score;
+
+        _totalCustomer++;
+        ItemSpawnInterval -= Mathf.Min(MaxItemSpawnInterval, Mathf.Max(MinItemSpawnInterval, ItemSpawnOverTime.Evaluate(_totalCustomer)));
+        CustomerSpawnInterval -= Mathf.Min(MaxCustomerSpawnInterval, Mathf.Max(MinCustomerSpawnInterval, CustomerSpawnOverTime.Evaluate(_totalCustomer)));
 
         if (ScoreUpdated != null)
         {

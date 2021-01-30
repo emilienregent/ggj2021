@@ -29,6 +29,9 @@ public class ItemSpawner : MonoBehaviour
 
     public List<Item> Pool { get => _pool; set => _pool = value; }
 
+
+    float timer;
+
     private void OnDrawGizmos()
     {
         // Draw a semitransparent cube at the transforms position
@@ -39,10 +42,24 @@ public class ItemSpawner : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        if(AvailableItems.Count > 0)
+        timer = GameManager.instance.ItemSpawDelay;
+        //if(AvailableItems.Count > 0)
+        //{
+        //    InvokeRepeating("SpawnItem", GameManager.instance.ItemSpawDelay, GameManager.instance.ItemSpawnInterval);
+        //}
+    }
+
+    private void Update() {
+        timer -= Time.deltaTime;
+        if(timer <= 0)
         {
-            InvokeRepeating("SpawnItem", GameManager.instance.ItemSpawDelay, GameManager.instance.ItemSpawnInterval);
+            if(AvailableItems.Count > 0)
+            {
+                SpawnItem();
+            }
+            timer = GameManager.instance.ItemSpawnInterval;
         }
+        
     }
 
     private void SpawnItem()

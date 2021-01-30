@@ -28,10 +28,25 @@ public class CustomerManager : MonoBehaviour
     public Vector3 spawnPosition = Vector3.zero;
     public int inGameCustomersCount { get { return inGameCustomers.Count; } }
 
+    float timer;
+
     // Update is called once per frame
     private void Start()
     {
-        
+        timer = GameManager.instance.CustomerSpawDelay;
+    }
+
+    private void Update() {
+        if(_customerSpawnStarted)
+        {
+            timer -= Time.deltaTime;
+            if(timer <= 0)
+            {
+                SpawnCustomers();
+                timer = GameManager.instance.CustomerSpawnInterval;
+            }
+        }
+       
     }
 
     public void EnableSpawnCustomerManager()
