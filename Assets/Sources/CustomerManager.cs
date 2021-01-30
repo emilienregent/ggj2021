@@ -67,7 +67,7 @@ public class CustomerManager : MonoBehaviour
         if (_customerSpawnStarted == false)
         {
             _customerSpawnStarted = true;
-            InvokeRepeating("SpawnCustomers", GameManager.instance.CustomerSpawDelay, GameManager.instance.CustomerSpawnInterval);
+            //InvokeRepeating("SpawnCustomers", GameManager.instance.CustomerSpawDelay, GameManager.instance.CustomerSpawnInterval);
             //StartCoroutine(SpawnCustomers());
         }
     }
