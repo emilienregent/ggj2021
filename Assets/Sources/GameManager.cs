@@ -57,5 +57,7 @@ public class GameManager : MonoBehaviour
         {
             ScoreUpdated.Invoke(currentScore);
         }
+
+        CoinSpawner.instance.AddCoinsToSpawn(score);
     }
 }

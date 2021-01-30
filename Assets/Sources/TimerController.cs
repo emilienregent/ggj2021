@@ -21,6 +21,14 @@ public class TimerController : MonoBehaviour
         _elapsedTime++;
         _timeLeft = _maxGameDuration - _elapsedTime;
 
-        label.text = _timeLeft.ToString();
+        int minutes = Mathf.FloorToInt(_timeLeft / 60);
+        int seconds = _timeLeft - (minutes * 60);
+
+        label.text = minutes.ToString("D2") + ":" + seconds.ToString("D2");
+
+        if (_timeLeft <= 0)
+        {
+            CancelInvoke();
+        }
     }
 }
