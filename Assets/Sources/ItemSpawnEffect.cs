@@ -27,7 +27,7 @@ public class ItemSpawnEffect : MonoBehaviour
 
         // Force
         Rigidbody body = GetComponent<Rigidbody>();
-        body.AddForce(-1 * transform.right * SideForce);
+        body.AddForce(1 * transform.right * SideForce);
         body.AddTorque(0f, 0f, Random.Range(RotationForce / 2, RotationForce));
 
     }
