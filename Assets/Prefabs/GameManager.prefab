@@ -43,8 +43,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8d52ceba44e734b9ec81e4d47949be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxGameDuration: 120
+  CurrentWave: 0
+  MaxWave: 10
+  PreparationPhaseDuration: 10
+  WavePhaseDuration: 30
+  RequiredClientPerWave: 03000000060000000c000000180000003000000060000000c0000000800100000003000000060000
+  _currentGameState: 0
   ItemSpawDelay: 3
   ItemSpawnInterval: 2
+  ItemSpawnOverTime:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  CustomerMaxNumber: 8
   CustomerSpawDelay: 2
   CustomerSpawnInterval: 3
+  CustomerSpawnOverTime:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   currentScore: 0
