@@ -22,16 +22,16 @@ public class GameManager : MonoBehaviour
     [Header("Configuration - Items")]
     public float ItemSpawDelay = 1f;
     public float ItemSpawnInterval = 2f;
+    public AnimationCurve ItemSpawnOverTime;
 
     [Header("Configuration - Customers")]
     public int CustomerMaxNumber = 8;
     public float CustomerSpawDelay = 1f;
     public float CustomerSpawnInterval = 2f;
+    public AnimationCurve CustomerSpawnOverTime;
 
-    public AnimationCurve ItemSpawnOverTime;
     float MaxItemSpawnInterval = 5f;
     float MinItemSpawnInterval = 0.5f;
-    public AnimationCurve CustomerSpawnOverTime;
     float MaxCustomerSpawnInterval = 7f;
     float MinCustomerSpawnInterval = 0.5f;
     int _totalCustomer = 0;
