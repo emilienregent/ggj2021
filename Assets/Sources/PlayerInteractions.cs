@@ -17,16 +17,20 @@ public class PlayerInteractions : MonoBehaviour {
     public CustomerController lookCustomer;
 
     [Header("Pickup")]
-    [SerializeField] private Transform pickupParent = null;
-    public GameObject currentlyPickedUpObject;
-    private Rigidbody pickupRB;
+    public Transform Handler = null;
+    public GameObject CurrentItem;
+    private Rigidbody _currentItemRigidbody;
     [SerializeField]
     private float maxDistance = 0.3f;
 
     bool _canInteractWithItem = true;
     private GameObject _currentChest;
 
-    private void Start() {
+    private void OnDrawGizmos()
+    {
+        // Draw a semitransparent cube at the transforms position
+        Gizmos.color = new Color(0, 0, 1, 0.5f);
+        Gizmos.DrawCube(Handler.transform.position, new Vector3(0.5f, 0.5f, 0.5f));
     }
 
     //Interactable Object detections and distance check
@@ -74,7 +78,7 @@ public class PlayerInteractions : MonoBehaviour {
             PlayerAnimator.SetTrigger("Pick");
             if (_canInteractWithItem)
             {
-                if (currentlyPickedUpObject == null)
+                if (CurrentItem == null)
                 {
                     if (lookedItem != null)
                     {
@@ -87,17 +91,17 @@ public class PlayerInteractions : MonoBehaviour {
                     {
                         CustomerController customer = lookCustomer;
 
-                        if (currentlyPickedUpObject != null)
+                        if (CurrentItem != null)
                         {
-                            Item item = currentlyPickedUpObject.GetComponent<Item>();
+                            Item item = CurrentItem.GetComponent<Item>();
 
                             if (CustomerManager.instance.CompleteCustomerRequest(customer, item))
                             {
-                                currentlyPickedUpObject.SetActive(false);
-                                currentlyPickedUpObject.transform.parent = null;
-                                currentlyPickedUpObject = null;
-                                pickupRB.drag = 1;
-                                pickupRB.useGravity = true;
+                                CurrentItem.SetActive(false);
+                                CurrentItem.transform.parent = null;
+                                CurrentItem = null;
+                                _currentItemRigidbody.drag = 1;
+                                _currentItemRigidbody.useGravity = true;
                             }
                         }
                     } else
@@ -111,9 +115,9 @@ public class PlayerInteractions : MonoBehaviour {
             {
                 Inventory chest = _currentChest.GetComponent<Inventory>();
                 chest.ChestUI.gameObject.SetActive(true);
-                if (currentlyPickedUpObject != null)
+                if (CurrentItem != null)
                 {
-                    chest.Add(currentlyPickedUpObject.GetComponent<Item>());
+                    chest.Add(CurrentItem.GetComponent<Item>());
                     StoreObject();
                 }
             }
@@ -140,37 +144,38 @@ public class PlayerInteractions : MonoBehaviour {
     //Release the object
     public void BreakConnection() {
 
-        pickupRB.drag = 1;
-        pickupRB.useGravity = true;
-        currentlyPickedUpObject.transform.parent = null;
-        pickupRB.constraints = RigidbodyConstraints.None;
-        currentlyPickedUpObject.transform.position += transform.forward * DropDistance;
-        Physics.IgnoreCollision(PlayerCollider, currentlyPickedUpObject.GetComponent<BoxCollider>(), false);
-        currentlyPickedUpObject = null;
-        pickupRB = null;
+        _currentItemRigidbody.drag = 1;
+        _currentItemRigidbody.useGravity = true;
+        CurrentItem.transform.parent = null;
+        _currentItemRigidbody.constraints = RigidbodyConstraints.None;
+        CurrentItem.transform.position += transform.forward * DropDistance;
+        Physics.IgnoreCollision(PlayerCollider, CurrentItem.GetComponent<BoxCollider>(), false);
+        CurrentItem = null;
+        _currentItemRigidbody = null;
     }
 
     public void PickUpObject() {
-        currentlyPickedUpObject = lookedItem.gameObject;
-        currentlyPickedUpObject.transform.position = pickupParent.position;
-        pickupRB = currentlyPickedUpObject.GetComponent<Rigidbody>();
-        pickupRB.isKinematic = false;
-        pickupRB.drag = 10;
-        pickupRB.useGravity = false;
-        pickupRB.constraints = RigidbodyConstraints.FreezePosition;
-        currentlyPickedUpObject.transform.parent = pickupParent;
+        CurrentItem = lookedItem.gameObject;
+        CurrentItem.transform.parent = Handler.transform;
+        CurrentItem.transform.localPosition = Vector3.zero;
+        CurrentItem.transform.rotation = Quaternion.Euler(Vector3.zero);
+        _currentItemRigidbody = CurrentItem.GetComponent<Rigidbody>();
+        _currentItemRigidbody.isKinematic = false;
+        _currentItemRigidbody.drag = 10;
+        _currentItemRigidbody.useGravity = false;
+        _currentItemRigidbody.constraints = RigidbodyConstraints.FreezePosition;
 
-        Physics.IgnoreCollision(PlayerCollider, currentlyPickedUpObject.GetComponent<BoxCollider>(), true);
+        Physics.IgnoreCollision(PlayerCollider, CurrentItem.GetComponent<BoxCollider>(), true);
     }
 
     public void StoreObject() {
-        pickupRB.isKinematic = true;
-        currentlyPickedUpObject.transform.parent = null;
-        currentlyPickedUpObject.gameObject.transform.position = new Vector3(-100, -100, -100);
-        pickupRB = null;
+        _currentItemRigidbody.isKinematic = true;
+        CurrentItem.transform.parent = null;
+        CurrentItem.gameObject.transform.position = new Vector3(-100, -100, -100);
+        _currentItemRigidbody = null;
         
-        Physics.IgnoreCollision(PlayerCollider, currentlyPickedUpObject.GetComponent<BoxCollider>(), false);
-        currentlyPickedUpObject = null;
+        Physics.IgnoreCollision(PlayerCollider, CurrentItem.GetComponent<BoxCollider>(), false);
+        CurrentItem = null;
     }
 
     public void UnstoreObject(GameObject storedObject) {

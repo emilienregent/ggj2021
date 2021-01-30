@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110644378456865384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.028, y: 0.011, z: 0.338}
+  m_LocalPosition: {x: 0, y: 0.4, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4005438599920478618}
@@ -368,8 +368,8 @@ MonoBehaviour:
   DropDistance: 1.02
   lookedItem: {fileID: 0}
   lookCustomer: {fileID: 0}
-  pickupParent: {fileID: 2964024762694517804}
-  currentlyPickedUpObject: {fileID: 0}
+  Handler: {fileID: 2964024762694517804}
+  CurrentItem: {fileID: 0}
   maxDistance: 3
 --- !u!1 &4005438599926892714
 GameObject:
