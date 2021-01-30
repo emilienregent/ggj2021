@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     public InventoryUI ChestUI;
     public PlayerInteractions Player;
 
-    public int InventorySpace = 36;
+    public int InventorySpace = 12;
     public List<Item> items = new List<Item>();
 
 
