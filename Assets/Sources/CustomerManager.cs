@@ -52,22 +52,31 @@ public class CustomerManager : MonoBehaviour
         if (_customerSpawnStarted == false)
         {
             _customerSpawnStarted = true;
-            StartCoroutine(SpawnCustomers());
+            InvokeRepeating("SpawnCustomers", GameManager.instance.CustomerSpawDelay, GameManager.instance.CustomerSpawnInterval);
+            //StartCoroutine(SpawnCustomers());
         }
     }
 
-    private IEnumerator SpawnCustomers()
+    //private IEnumerator SpawnCustomers()
+    private void SpawnCustomers()
     {
-        while (true)
+        //while (true)
+        //{
+        //    yield return new WaitForSeconds(GameManager.instance.CustomerSpawDelay);
+
+        //    if (inGameCustomersCount < slots.Length)
+        //    {
+        //        CustomerController customer = PickRandomCustomer();
+
+        //        SpawnCustomer(customer);
+        //    }
+        //}
+
+        if (inGameCustomersCount < slots.Length)
         {
-            yield return new WaitForSeconds(GameManager.instance.CustomerSpawDelay);
+            CustomerController customer = PickRandomCustomer();
 
-            if (inGameCustomersCount < slots.Length)
-            {
-                CustomerController customer = PickRandomCustomer();
-
-                SpawnCustomer(customer);
-            }
+            SpawnCustomer(customer);
         }
     }
 

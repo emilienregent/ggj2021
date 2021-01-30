@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemSpawDelay: 3
-  ItemSpawnInterval: 1
+  ItemSpawnInterval: 2
   CustomerSpawDelay: 2
-  CustomerSpawnInterval: 2
+  CustomerSpawnInterval: 3
   currentScore: 0
