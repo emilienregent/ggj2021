@@ -38,7 +38,7 @@ public class CustomerController : MonoBehaviour
     public bool SetReady(int inGameIndex)
     {
         _index = inGameIndex;
-        _queuePosition = new Vector3(6.5f - (1.4f * _index), 0f, 3f);
+        _queuePosition = new Vector3(6.5f - (1.75f * _index), 0f, 3f);
         _currentPosition = CustomerManager.instance.spawnPosition;
 
         // Find an item available

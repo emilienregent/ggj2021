@@ -19,9 +19,12 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    [Header("Configuration")]
+    [Header("Configuration - Items")]
     public float ItemSpawDelay = 1f;
     public float ItemSpawnInterval = 2f;
+
+    [Header("Configuration - Customers")]
+    public int CustomerMaxNumber = 8;
     public float CustomerSpawDelay = 1f;
     public float CustomerSpawnInterval = 2f;
 

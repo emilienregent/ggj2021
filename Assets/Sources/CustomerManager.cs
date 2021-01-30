@@ -22,7 +22,7 @@ public class CustomerManager : MonoBehaviour
 
     private Dictionary<int, CustomerController> inGameCustomers = new Dictionary<int, CustomerController>();
     private bool _customerSpawnStarted = false;
-    private int[] slots = new int[10];
+    private int[] slots;
 
     public List<CustomerController> customerPrefabs = new List<CustomerController>();
     public Vector3 spawnPosition = Vector3.zero;
@@ -33,6 +33,9 @@ public class CustomerManager : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
+        // Max customers at the same time
+        slots = new int[GameManager.instance.CustomerMaxNumber];
+
         timer = GameManager.instance.CustomerSpawDelay;
     }
 
