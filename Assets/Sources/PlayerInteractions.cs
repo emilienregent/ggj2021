@@ -56,8 +56,11 @@ public class PlayerInteractions : MonoBehaviour {
         if (Physics.SphereCast(SphereCastPos.position, sphereCastRadius, transform.TransformDirection(Vector3.forward), out hit, maxDistance, 1 << interactableCustomerLayer))
         {
             lookCustomer = hit.collider.transform.GetComponent<CustomerController>();
-            lookCustomer.face.material.SetFloat("_OutlineWidth", 0.02f);
-            lookCustomer.body.material.SetFloat("_OutlineWidth", 0.02f);
+            if(lookCustomer != null)
+            {
+                lookCustomer.face.material.SetFloat("_OutlineWidth", 0.02f);
+                lookCustomer.body.material.SetFloat("_OutlineWidth", 0.02f);
+            }
         }
         else
         {

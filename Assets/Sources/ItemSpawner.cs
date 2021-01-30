@@ -71,11 +71,20 @@ public class ItemSpawner : MonoBehaviour
             newItem = Instantiate(itemToInstantiate, transform);
 
             _pool.Add(newItem);
+            if(_pool.Count == 1)
+            {
+                CustomerManager.instance.EnableSpawnCustomerManager();
+            }
         }
     }
 
     public Item RequestItem()
     {
+        if(_pool.Count == 0)
+        {
+            return null;
+        }
+
         System.Random rand = new System.Random();
 
         List<Item> availableItems = _pool.Where(item => item.CurrentState == ItemState.Available).ToList();

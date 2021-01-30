@@ -31,6 +31,11 @@ public class CustomerManager : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
+        
+    }
+
+    public void EnableSpawnCustomerManager()
+    {
         StartCoroutine(SpawnFirstCustomer());
     }
 
@@ -95,6 +100,9 @@ public class CustomerManager : MonoBehaviour
                 {
                     // Add item to the dictionnary of in game items
                     inGameCustomers.Add(customer.index, customer);
+                } else
+                {
+                    GameObject.Destroy(customer.gameObject);
                 }
                 break;
             }

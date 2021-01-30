@@ -21188,11 +21188,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2435781123435433697, guid: bd99bd8fe26f0eb4e8f6c1b9cc1783f2,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 1ee6ca455ccdcd84b9202ee35ead7a74, type: 2}
     - target: {fileID: 2641941185674832172, guid: bd99bd8fe26f0eb4e8f6c1b9cc1783f2,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -25576,16 +25571,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1162733990}
     m_Modifications:
-    - target: {fileID: 3758034069304114844, guid: 160e94140ea7baf4abf30211f8e8c12c,
-        type: 3}
-      propertyPath: CustomerSpawDelay
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3758034069304114844, guid: 160e94140ea7baf4abf30211f8e8c12c,
-        type: 3}
-      propertyPath: ItemSpawDelay
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 5022393271397138141, guid: 160e94140ea7baf4abf30211f8e8c12c,
         type: 3}
       propertyPath: m_Name

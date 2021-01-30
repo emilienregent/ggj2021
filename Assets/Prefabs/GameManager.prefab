@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8d52ceba44e734b9ec81e4d47949be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemSpawDelay: 1
+  ItemSpawDelay: 3
   ItemSpawnInterval: 1
   CustomerSpawDelay: 2
   CustomerSpawnInterval: 2
