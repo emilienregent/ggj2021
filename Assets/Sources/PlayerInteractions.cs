@@ -10,6 +10,7 @@ public class PlayerInteractions : MonoBehaviour {
     public int interactableItemLayer;
     public int interactableCustomerLayer;
     public Transform SphereCastPos;
+    public float DropDistance;
     [SerializeField]
     public Item lookedItem;
     [SerializeField]
@@ -143,6 +144,7 @@ public class PlayerInteractions : MonoBehaviour {
         pickupRB.useGravity = true;
         currentlyPickedUpObject.transform.parent = null;
         pickupRB.constraints = RigidbodyConstraints.None;
+        currentlyPickedUpObject.transform.position += transform.forward * DropDistance;
         Physics.IgnoreCollision(PlayerCollider, currentlyPickedUpObject.GetComponent<BoxCollider>(), false);
         currentlyPickedUpObject = null;
         pickupRB = null;
