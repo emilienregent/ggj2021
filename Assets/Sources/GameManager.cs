@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     public int MaxWave = 10;
     public float PreparationPhaseDuration = 10;
     public float WavePhaseDuration = 30;
+    public Color PreparationPhaseColor = Color.white;
+    public Color WavePhaseColor = Color.white;
     public int[] RequiredClientPerWave;
 
     [Header("Configuration - Items")]
