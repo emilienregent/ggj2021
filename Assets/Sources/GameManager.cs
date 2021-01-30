@@ -171,7 +171,7 @@ public class GameManager : MonoBehaviour
 
         CoinSpawner.instance.AddCoinsToSpawn(score);
 
-        if(CurrentWave == 0 && _totalCustomer == 1)
+        if(CurrentWave == 0 && _totalCustomer == 1 && CurrentGameState == GameState.Tutorial)
         {
             StartPreparationPhase();
         }
