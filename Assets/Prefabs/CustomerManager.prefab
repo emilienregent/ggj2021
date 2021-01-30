@@ -43,8 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85411e6f70cd8d7499a3dfd8e24785b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCustomers: 10
-  customerPrefabs:
+  _slots: 
+  CustomerPrefabs:
   - {fileID: -166034054954645278, guid: afbe0f1e9d414d94f92e57f6b2944fc1, type: 3}
   - {fileID: 652548199139821890, guid: fb6ffadeafb45f8479fab722926b623b, type: 3}
-  spawnPosition: {x: -11.01, y: 0, z: 4.73}
+  SpawnPosition: {x: -10, y: 0, z: 5}

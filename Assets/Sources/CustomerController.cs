@@ -6,7 +6,7 @@ public class CustomerController : MonoBehaviour
     public struct ItemRequest
     {
         public int price;
-        public int satisfaction;
+        public float satisfaction;
         public Item item;
     }
 
@@ -20,8 +20,11 @@ public class CustomerController : MonoBehaviour
     [Header("Request")]
     public GameObject bubble = null;
     public Image icon = null;
+    public Image satisfactionGauge;
     public int priceMin = 0;
     public int priceMax = 0;
+    [Tooltip("Decreasing value of satisfaction every second (float value from 0 to 1)")]
+    public float SatisfactionStepOverTime = 0.01f;
 
     private int _index = -1;
     private int _tweenId = -1;
@@ -29,17 +32,17 @@ public class CustomerController : MonoBehaviour
     private Vector3 _queuePosition = Vector3.zero;
     private ItemRequest _currentRequest = new ItemRequest();
 
-    public int index { get { return _index; } }
+    public int Index { get { return _index; } }
 
-    public int score { get { return Mathf.RoundToInt(_currentRequest.price * _currentRequest.satisfaction); } }
+    public int Score { get { return Mathf.RoundToInt(_currentRequest.price * _currentRequest.satisfaction); } }
 
-    public ItemRequest currentRequest { get { return _currentRequest; } }
+    public ItemRequest CurrentRequest { get { return _currentRequest; } }
 
     public bool SetReady(int inGameIndex)
     {
         _index = inGameIndex;
         _queuePosition = new Vector3(6.5f - (1.75f * _index), 0f, 3f);
-        _currentPosition = CustomerManager.instance.spawnPosition;
+        _currentPosition = CustomerManager.instance.SpawnPosition;
 
         // Find an item available
         if (SetItemRequest())
@@ -90,7 +93,10 @@ public class CustomerController : MonoBehaviour
         if (_currentRequest.item != null)
         {
             _currentRequest.price = Random.Range(priceMin, priceMax);
-            _currentRequest.satisfaction = 1; // Percentage to apply on price once request complete
+            _currentRequest.satisfaction = 1f; // Percentage to apply on price once request complete, decrease over time
+            satisfactionGauge.fillAmount = _currentRequest.satisfaction;
+
+            InvokeRepeating("UpdateSatisfaction", 1f, 1f);
 
             icon.sprite = _currentRequest.item.icon;
 
@@ -98,6 +104,17 @@ public class CustomerController : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void UpdateSatisfaction()
+    {
+        _currentRequest.satisfaction -= SatisfactionStepOverTime;
+        satisfactionGauge.fillAmount = _currentRequest.satisfaction;
+
+        if (_currentRequest.satisfaction <= 0f)
+        {
+            CustomerManager.instance.ReleaseCustomer(this);
+        }
     }
 
     private void OnQueuePositionCompleted()

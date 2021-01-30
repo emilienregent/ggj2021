@@ -20,33 +20,35 @@ public class CustomerManager : MonoBehaviour
     }
     #endregion
 
-    private Dictionary<int, CustomerController> inGameCustomers = new Dictionary<int, CustomerController>();
+    private Dictionary<int, CustomerController> _inGameCustomers = new Dictionary<int, CustomerController>();
     private bool _customerSpawnStarted = false;
-    private int[] slots;
 
-    public List<CustomerController> customerPrefabs = new List<CustomerController>();
-    public Vector3 spawnPosition = Vector3.zero;
-    public int inGameCustomersCount { get { return inGameCustomers.Count; } }
+    [SerializeField]
+    private bool[] _slots;
 
-    float timer;
+    public List<CustomerController> CustomerPrefabs = new List<CustomerController>();
+    public Vector3 SpawnPosition = Vector3.zero;
+    public int InGameCustomersCount { get { return _inGameCustomers.Count; } }
+
+    private float _timer;
 
     // Update is called once per frame
     private void Start()
     {
         // Max customers at the same time
-        slots = new int[GameManager.instance.CustomerMaxNumber];
+        _slots = new bool[GameManager.instance.CustomerMaxNumber];
 
-        timer = GameManager.instance.CustomerSpawDelay;
+        _timer = GameManager.instance.CustomerSpawDelay;
     }
 
     private void Update() {
         if(_customerSpawnStarted)
         {
-            timer -= Time.deltaTime;
-            if(timer <= 0)
+            _timer -= Time.deltaTime;
+            if(_timer <= 0)
             {
                 SpawnCustomers();
-                timer = GameManager.instance.CustomerSpawnInterval;
+                _timer = GameManager.instance.CustomerSpawnInterval;
             }
         }
        
@@ -62,7 +64,7 @@ public class CustomerManager : MonoBehaviour
         yield return new WaitForSeconds(GameManager.instance.CustomerSpawDelay);
 
         // Spawn first customer for FTUE
-        SpawnCustomer(customerPrefabs[0]);
+        SpawnCustomer(CustomerPrefabs[0]);
     }
 
     private void StartSpawnCustomers()
@@ -70,27 +72,12 @@ public class CustomerManager : MonoBehaviour
         if (_customerSpawnStarted == false)
         {
             _customerSpawnStarted = true;
-            //InvokeRepeating("SpawnCustomers", GameManager.instance.CustomerSpawDelay, GameManager.instance.CustomerSpawnInterval);
-            //StartCoroutine(SpawnCustomers());
         }
     }
-
-    //private IEnumerator SpawnCustomers()
+    
     private void SpawnCustomers()
     {
-        //while (true)
-        //{
-        //    yield return new WaitForSeconds(GameManager.instance.CustomerSpawDelay);
-
-        //    if (inGameCustomersCount < slots.Length)
-        //    {
-        //        CustomerController customer = PickRandomCustomer();
-
-        //        SpawnCustomer(customer);
-        //    }
-        //}
-
-        if (inGameCustomersCount < slots.Length)
+        if (InGameCustomersCount < _slots.Length)
         {
             CustomerController customer = PickRandomCustomer();
 
@@ -100,9 +87,9 @@ public class CustomerManager : MonoBehaviour
 
     private CustomerController PickRandomCustomer()
     {
-        int indexToUse = Random.Range(0, customerPrefabs.Count);
+        int indexToUse = Random.Range(0, CustomerPrefabs.Count);
 
-        return customerPrefabs[indexToUse];
+        return CustomerPrefabs[indexToUse];
     }
 
     // Spawn a customer
@@ -117,16 +104,15 @@ public class CustomerManager : MonoBehaviour
             customer = Instantiate(customerController, this.transform);
         }
 
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < _slots.Length; i++)
         {
-            if (slots[i] <= 0)
+            if(_slots[i] == false)
             {
-                slots[i] = 1;
-
                 if (customer.SetReady(i))
                 {
                     // Add item to the dictionnary of in game items
-                    inGameCustomers.Add(customer.index, customer);
+                    _inGameCustomers.Add(customer.Index, customer);
+                    _slots[i] = true;
                 } else
                 {
                     GameObject.Destroy(customer.gameObject);
@@ -139,16 +125,17 @@ public class CustomerManager : MonoBehaviour
 
     public void ReleaseCustomer(CustomerController customerController)
     {
-        slots[customerController.index] = 0;
+        customerController.CancelInvoke();
+        _slots[customerController.Index] = false;
 
-        customerController.gameObject.SetActive(false);
-
-        inGameCustomers.Remove(customerController.index);
+        _inGameCustomers.Remove(customerController.Index);
+        GameObject.Destroy(customerController.gameObject);
+        //customerController.gameObject.SetActive(false);
     }
 
     public bool CompleteCustomerRequest(CustomerController customerController, Item item)
     {
-        if (item.ItemType == customerController.currentRequest.item.ItemType)
+        if (item.ItemType == customerController.CurrentRequest.item.ItemType)
         {
             // Start real spawning once first customer has been completed
             if (GameManager.instance.currentScore == 0)
@@ -156,7 +143,7 @@ public class CustomerManager : MonoBehaviour
                 StartSpawnCustomers();
             }
 
-            GameManager.instance.UpdateScore(customerController.score);
+            GameManager.instance.UpdateScore(customerController.Score);
 
             ReleaseCustomer(customerController);
 
