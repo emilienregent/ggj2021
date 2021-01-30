@@ -92,6 +92,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: CustomerCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8620969857999339679, guid: 8a5d877f66b15ca4985a57a67f8c923d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.028301895
+      objectReference: {fileID: 0}
+    - target: {fileID: 8620969857999339679, guid: 8a5d877f66b15ca4985a57a67f8c923d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.027753906
+      objectReference: {fileID: 0}
+    - target: {fileID: 8620969857999339679, guid: 8a5d877f66b15ca4985a57a67f8c923d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.027634397
+      objectReference: {fileID: 0}
     - target: {fileID: 8991355838665286135, guid: 8a5d877f66b15ca4985a57a67f8c923d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -115,12 +130,12 @@ PrefabInstance:
     - target: {fileID: 8991355838665286135, guid: 8a5d877f66b15ca4985a57a67f8c923d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 8991355838665286135, guid: 8a5d877f66b15ca4985a57a67f8c923d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 8991355838665286135, guid: 8a5d877f66b15ca4985a57a67f8c923d,
         type: 3}
@@ -135,7 +150,7 @@ PrefabInstance:
     - target: {fileID: 8991355838665286135, guid: 8a5d877f66b15ca4985a57a67f8c923d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 8991355838665286135, guid: 8a5d877f66b15ca4985a57a67f8c923d,
         type: 3}
