@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 
 public enum GameState { Tutorial, Preparation, Wave, Gameover};
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     public SlidingText PreparationPhaseAnnounce;
     public SlidingText WavePhaseAnnounce;
+    public TextMeshPro WaveGoal;
 
     [Header("Configuration - Items")]
     public float ItemSpawDelay = 1f;
@@ -129,10 +131,16 @@ public class GameManager : MonoBehaviour
         //} else
         //{
         CurrentTimer = PreparationPhaseDuration;
+        GameState previousState = CurrentGameState;
         CurrentGameState = GameState.Preparation;
         PreparationPhaseAnnounce.enabled = true;
         UpdateSpawnInterval();
-        CurrentWave++;
+        if(previousState != GameState.Tutorial)
+        {
+            CurrentWave++;
+        }
+        _totalCustomer = 0;
+        WaveGoal.text = _totalCustomer + " / " + RequiredClientPerWave[CurrentWave];
         //}
     }
 
@@ -154,6 +162,7 @@ public class GameManager : MonoBehaviour
         currentScore += score;
 
         _totalCustomer++;
+        WaveGoal.text = _totalCustomer + " / " + RequiredClientPerWave[CurrentWave];
         UpdateSpawnInterval();
 
         if (ScoreUpdated != null)
@@ -165,7 +174,7 @@ public class GameManager : MonoBehaviour
 
         if(CurrentWave == 0 && _totalCustomer == 1)
         {
-            CurrentGameState = GameState.Preparation;
+            StartPreparationPhase();
         }
     }
 

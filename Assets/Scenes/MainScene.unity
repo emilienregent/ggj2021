@@ -3340,6 +3340,31 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2424198297072820484, guid: 6279ee29ed643e242bb88e489a4f15ed,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424198297072820484, guid: 6279ee29ed643e242bb88e489a4f15ed,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424198297072820484, guid: 6279ee29ed643e242bb88e489a4f15ed,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424198297072820484, guid: 6279ee29ed643e242bb88e489a4f15ed,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424198297072820484, guid: 6279ee29ed643e242bb88e489a4f15ed,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6200500660274323086, guid: 6279ee29ed643e242bb88e489a4f15ed,
         type: 3}
       propertyPath: m_Mesh
@@ -3350,6 +3375,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InGameCanvasWorldSpace
       objectReference: {fileID: 0}
+    - target: {fileID: 7356365249843047711, guid: 6279ee29ed643e242bb88e489a4f15ed,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7821930946529529096, guid: 6279ee29ed643e242bb88e489a4f15ed,
         type: 3}
       propertyPath: m_Mesh
@@ -3357,6 +3387,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+--- !u!114 &321335955 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2424198297072820484, guid: 6279ee29ed643e242bb88e489a4f15ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 321335954}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &324153664
 GameObject:
   m_ObjectHideFlags: 0
@@ -27046,6 +27088,11 @@ PrefabInstance:
       propertyPath: WavePhaseAnnounce
       value: 
       objectReference: {fileID: 811644335}
+    - target: {fileID: 3758034069304114844, guid: 160e94140ea7baf4abf30211f8e8c12c,
+        type: 3}
+      propertyPath: WaveGoal
+      value: 
+      objectReference: {fileID: 321335955}
     - target: {fileID: 5022393271397138141, guid: 160e94140ea7baf4abf30211f8e8c12c,
         type: 3}
       propertyPath: m_Name
