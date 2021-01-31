@@ -150,7 +150,11 @@ public class CustomerController : MonoBehaviour
         _currentRequest.satisfaction -= SatisfactionStepOverTime;
         satisfactionGauge.fillAmount = _currentRequest.satisfaction;
 
-        if (_currentRequest.satisfaction <= 0f)
+        if (_currentRequest.satisfaction <= 0.33f)
+        {
+            satisfactionGauge.color = Color.red;
+        }
+        else if (_currentRequest.satisfaction <= 0f)
         {
             CustomerManager.instance.ReleaseCustomer(this);
         }
