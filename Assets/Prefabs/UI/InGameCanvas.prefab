@@ -2741,6 +2741,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6d3956744f47c4cbe13637a77af32c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Score: {fileID: 5274520410896343217}
+  Timer: {fileID: 4508728813200115863}
+  Wave: {fileID: 2791883860703467711}
+  Items: {fileID: 2974192965234728509}
 --- !u!1 &8172339777049172619
 GameObject:
   m_ObjectHideFlags: 0

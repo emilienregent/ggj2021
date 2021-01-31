@@ -135,6 +135,7 @@ public class GameManager : MonoBehaviour
     {
         if (_totalCustomer < RequiredClientPerWave[CurrentWave])
         {
+            PopupController.instance.GameOverPopup.SetGameOverPopup(currentScore, (float)Math.Truncate(Time.timeSinceLevelLoad * 10f) / 10f, CurrentWave.ToString() + " / " + MaxWave.ToString(), ItemSpawner.instance.Pool.Count);
             PopupController.instance.GameOverPopup.Display();
             _currentGameState = GameState.Gameover;
         } else
