@@ -43,7 +43,7 @@ public class ItemSpawner : MonoBehaviour
 
     float timer;
 
-    bool _canSpawn = true;
+    bool _canSpawn = false;
 
     private void OnDrawGizmos()
     {
@@ -85,10 +85,7 @@ public class ItemSpawner : MonoBehaviour
                 break;
 
             case GameState.Tutorial:
-                if(Pool.Count >= 1)
-                {
-                    _canSpawn = false;
-                }
+                _canSpawn = Pool.Count == 0;
                 break;
         }
 
