@@ -1126,7 +1126,7 @@ MonoBehaviour:
   button: {fileID: 1979377378126810217}
   buttonEaseType: 1
   normalColor: {r: 1, g: 1, b: 1, a: 1}
-  emissiveColor: {r: 0.92156863, g: 0.18431373, b: 0.023529412, a: 1}
+  emissiveColor: {r: 0.7176471, g: 0.08235294, b: 0.2509804, a: 1}
 --- !u!1 &2947189172045043520
 GameObject:
   m_ObjectHideFlags: 0
@@ -26344,7 +26344,7 @@ PrefabInstance:
     - target: {fileID: 5076630063719779903, guid: 307adcc65c341c540b175eefc87160fe,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.35
+      value: 1.19
       objectReference: {fileID: 0}
     - target: {fileID: 5076630063719779903, guid: 307adcc65c341c540b175eefc87160fe,
         type: 3}
