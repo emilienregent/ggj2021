@@ -17,6 +17,7 @@ public class CustomerController : MonoBehaviour
     public MeshRenderer body = null;
     public MeshRenderer face = null;
     public Material[] outfits = null;
+    public GameObject[] items = null;
 
     [Header("Request")]
     public GameObject bubble = null;
@@ -31,6 +32,8 @@ public class CustomerController : MonoBehaviour
     private Vector3 _spawnPosition = Vector3.zero;
     private Vector3 _queuePosition = Vector3.zero;
     private ItemRequest _currentRequest = new ItemRequest();
+
+    private bool isRequestCompleted = false;
 
     public int Index { get { return _index; } }
 
@@ -63,11 +66,30 @@ public class CustomerController : MonoBehaviour
         return false;
     }
 
+    public bool CompleteRequest(Item item)
+    {
+        isRequestCompleted = item.ItemType == CurrentRequest.item.ItemType;
+
+        return isRequestCompleted;
+    }
+
     public void Leave()
     {
         bubble.SetActive(false);
 
-        LeanTween.rotateY(gameObject, 0f, 0.3f);
+        if (isRequestCompleted == true)
+        {
+            for(int i = 0; i < items.Length; i++)
+            {
+                if (items[i].name == CurrentRequest.item.Name)
+                {
+                    items[i].SetActive(true);
+                    break;
+                }
+            }
+        }
+
+        LeanTween.rotateY(gameObject, 90f, 0.3f);
 
         MoveTo(new Vector3(transform.position.x, 0f, _spawnPosition.z), 0.5f).setOnComplete(MoveToExitPosition);
     }

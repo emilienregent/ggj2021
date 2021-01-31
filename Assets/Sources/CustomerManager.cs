@@ -162,7 +162,7 @@ public class CustomerManager : MonoBehaviour
 
     public bool CompleteCustomerRequest(CustomerController customerController, Item item)
     {
-        if (item.ItemType == customerController.CurrentRequest.item.ItemType)
+        if (customerController.CompleteRequest(item))
         {
             // Start real spawning once first customer has been completed
             if (GameManager.instance.currentScore == 0)
