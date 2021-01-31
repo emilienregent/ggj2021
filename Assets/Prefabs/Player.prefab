@@ -361,6 +361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCollider: {fileID: 5776672503553537040}
   PlayerAnimator: {fileID: 2435781123435433697}
+  PlayerRigidbody: {fileID: 4005438599920478619}
   sphereCastRadius: 0.5
   interactableItemLayer: 8
   interactableCustomerLayer: 9

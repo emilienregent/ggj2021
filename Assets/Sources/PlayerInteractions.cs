@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerInteractions : MonoBehaviour {
     public Collider PlayerCollider;
     public Animator PlayerAnimator;
+    public Rigidbody PlayerRigidbody;
     [Header("InteractableInfo")]
     public float sphereCastRadius = 0.5f;
     public int interactableItemLayer;
@@ -94,7 +95,6 @@ public class PlayerInteractions : MonoBehaviour {
                         if (CurrentItem != null)
                         {
                             Item item = CurrentItem.GetComponent<Item>();
-
                             if (CustomerManager.instance.CompleteCustomerRequest(customer, item))
                             {
                                 CurrentItem.SetActive(false);
@@ -102,6 +102,10 @@ public class PlayerInteractions : MonoBehaviour {
                                 CurrentItem = null;
                                 _currentItemRigidbody.drag = 1;
                                 _currentItemRigidbody.useGravity = true;
+                            } else
+                            {
+                                Vector3 direction = transform.position - customer.transform.position;
+                                PlayerRigidbody.AddForce(direction * 5, ForceMode.Impulse);
                             }
                         }
                     } else
