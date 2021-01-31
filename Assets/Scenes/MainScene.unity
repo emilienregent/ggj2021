@@ -232,6 +232,54 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1861226313, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.113
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861226313, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2.4105513
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861226313, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.311
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861226313, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0.8226881
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861226314, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_text
+      value: <size=70%>Lost </size><size=30%>in the</size> <size=70%>Chest</size>
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861226314, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_fontSize
+      value: 7.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861226314, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861226314, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_textInfo.materialCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861226314, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861226314, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861226314, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861226314, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
+      propertyPath: m_lineSpacing
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1861226315, guid: 6279ee29ed643e242bb88e489a4f15ed, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -341,6 +389,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 74087921290738417, guid: 6279ee29ed643e242bb88e489a4f15ed,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2424198297072820484, guid: 6279ee29ed643e242bb88e489a4f15ed,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -384,6 +437,11 @@ PrefabInstance:
     - target: {fileID: 7821930946529529096, guid: 6279ee29ed643e242bb88e489a4f15ed,
         type: 3}
       propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840558434200621822, guid: 6279ee29ed643e242bb88e489a4f15ed,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1273,6 +1331,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InGameCanvasOverlay
+      objectReference: {fileID: 0}
+    - target: {fileID: 2073425002454138728, guid: 6ab4ba5aa79db994994376ebbf800c7b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2073425002454138740, guid: 6ab4ba5aa79db994994376ebbf800c7b,
         type: 3}
